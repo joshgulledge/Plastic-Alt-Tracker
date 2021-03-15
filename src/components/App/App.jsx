@@ -16,6 +16,7 @@ import MainPage from '../MainPage/MainPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import DescriptionPage from '../DescriptionPage/DescriptionPage'
 
 import './App.css';
 
@@ -29,9 +30,7 @@ function App() {
   return (
     
     <Router>
-      <header>
-        <h1>Plastic Alternative Tracker</h1>
-      </header>
+      
       <div>
         <Nav />
         <Switch>
@@ -55,36 +54,35 @@ function App() {
             be taken to the component and path supplied. */}
           <ProtectedRoute
             // with authRedirect:
-            // - if logged in, redirects to "/user"
+            // - if logged in, redirects to "/mainPage"
             // - else shows LoginPage at /login
             exact
             path="/login"
-            authRedirect="/user"
-          >
+            authRedirect="/mainPage">
             <LoginPage />
           </ProtectedRoute>
 
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows RegisterPage at "/registration"
             exact
             path="/registration"
-            authRedirect="/user"
-          >
+            authRedirect="/mainPage">
             <RegisterPage />
           </ProtectedRoute>
 
           <ProtectedRoute
-            // with authRedirect:
-            // - if logged in, redirects to "/user"
-            // - else shows LandingPage at "/home"
             exact
             path="/home"
-            authRedirect="/user"
-          >
+            authRedirect="/mainPage">
             <LandingPage />
           </ProtectedRoute>
+
+          <Route exact path='/description'>
+            <DescriptionPage />
+          </Route>
+
+          <Route exact path='/myLikes'>
+            <h3> Insert my likes component here </h3>
+          </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
