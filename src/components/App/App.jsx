@@ -17,6 +17,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import DescriptionPage from '../DescriptionPage/DescriptionPage'
+import UserLikes from '../UserLikes/UserLikes';
 
 import './App.css';
 
@@ -81,7 +82,7 @@ function App() {
           </Route>
 
           <Route exact path='/myLikes'>
-            <h3> Insert my likes component here </h3>
+            <UserLikes />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
