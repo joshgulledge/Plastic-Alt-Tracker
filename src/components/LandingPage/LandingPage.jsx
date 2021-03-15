@@ -15,45 +15,11 @@ function LandingPage() {
 
   return (
     <div className="container">
-      <h2>{heading}</h2>
 
       <div className="grid">
-        <div className="grid-col grid-col_8">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            id felis metus. Vestibulum et pulvinar tortor. Morbi pharetra lacus
-            ut ex molestie blandit. Etiam et turpis sit amet risus mollis
-            interdum. Suspendisse et justo vitae metus bibendum fringilla sed
-            sed justo. Aliquam sollicitudin dapibus lectus, vitae consequat odio
-            elementum eget. Praesent efficitur eros vitae nunc interdum, eu
-            interdum justo facilisis. Sed pulvinar nulla ac dignissim efficitur.
-            Quisque eget eros metus. Vestibulum bibendum fringilla nibh a
-            luctus. Duis a sapien metus.
-          </p>
-
-          <p>
-            Praesent consectetur orci dui, id elementum eros facilisis id. Sed
-            id dolor in augue porttitor faucibus eget sit amet ante. Nunc
-            consectetur placerat pharetra. Aenean gravida ex ut erat commodo, ut
-            finibus metus facilisis. Nullam eget lectus non urna rhoncus
-            accumsan quis id massa. Curabitur sit amet dolor nisl. Proin
-            euismod, augue at condimentum rhoncus, massa lorem semper lacus, sed
-            lobortis augue mi vel felis. Duis ultrices sapien at est convallis
-            congue.
-          </p>
-
-          <p>
-            Fusce porta diam ac tortor elementum, ut imperdiet metus volutpat.
-            Suspendisse posuere dapibus maximus. Aliquam vitae felis libero. In
-            vehicula sapien at semper ultrices. Vivamus sed feugiat libero. Sed
-            sagittis neque id diam euismod, ut egestas felis ultricies. Nullam
-            non fermentum mauris. Sed in enim ac turpis faucibus pretium in sit
-            amet nisi.
-          </p>
-        </div>
-        <div className="grid-col grid-col_4">
+        
+        <div className="grid-col grid-col_4" >
           <RegisterForm />
-
           <center>
             <h4>Already a Member?</h4>
             <button className="btn btn_sizeSm" onClick={onLogin}>
@@ -61,6 +27,10 @@ function LandingPage() {
             </button>
           </center>
         </div>
+          <div className='landing_page_about'>
+            <h3>What we Do</h3>
+            <p>We aim to try and help people cut back on their personal plastic use. We think this can be done by keeping up with different products that we have used, ones we haven't used yet, and if we liked those products and why. This application will help users do that. We have a wide range of products that you can browse through and like or dislike the products as well as give a reason why that product either worked or didn't work for you.  </p>
+          </div>
       </div>
     </div>
   );

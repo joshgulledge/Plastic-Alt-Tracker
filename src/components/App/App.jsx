@@ -30,7 +30,11 @@ function App() {
   }, [dispatch]);
 
   return (
+    
     <Router>
+      <header>
+        <h1>Plastic Alternative Tracker</h1>
+      </header>
       <div>
         <Nav />
         <Switch>
