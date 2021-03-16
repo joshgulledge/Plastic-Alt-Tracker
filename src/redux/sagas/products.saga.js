@@ -4,7 +4,19 @@ import axios from 'axios';
 function* productSaga () {
   yield takeEvery('GET_PRODUCT', getProduct)
   yield takeEvery('ADD_PRODUCT', addProduct);
+  yield takeEvery('PRODUCT_LIKED', productLiked)
 }; // end productSaga
+
+const productLiked = function* (action) {
+  try {
+    yield axios.post('/api/products/likes', {update: action.payload});
+
+    console.log('it worked');
+  }
+  catch (err) {
+    console.log('something went wrong in the like💥', err)
+  }; 
+}; // end productLiked
 
 const addProduct = function* (action) {
   try {

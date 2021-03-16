@@ -1,11 +1,21 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 
 const DescriptionPage = function () {
+  // set up dispatch to use
+  const dispatch = useDispatch();
+  // get redux stored information
   const product = useSelector(store => store.products.singleProduct);
+  const user = useSelector(store => store.user);
 
   const likeProduct = function () {
-    console.log('product liked');
+    dispatch({
+      type: 'PRODUCT_LIKED',
+      payload: {
+        product,
+        user
+      }
+    })
   }; // ene likeProduct
 
   const hateProduct = function () {
