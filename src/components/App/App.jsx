@@ -5,20 +5,19 @@ import {
   Redirect,
   Switch,
 } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
-
 import Nav from '../Nav/Nav';
-
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
+// components
 import MainPage from '../MainPage/MainPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import DescriptionPage from '../DescriptionPage/DescriptionPage'
 import UserLikes from '../UserLikes/UserLikes';
-
+import AddProduct from '../AddProduct/AddProduct';
+// styling
 import './App.css';
 
 function App() {
@@ -86,7 +85,7 @@ function App() {
           </Route>
 
           <Route exact path='/addProduct'>
-            {/* <UserLikes /> */}
+            <AddProduct />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}

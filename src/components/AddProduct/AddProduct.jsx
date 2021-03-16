@@ -6,3 +6,5 @@ const AddProduct = function () {
     </div>
   )
 }; // end AddProduct
+
+export default AddProduct;
