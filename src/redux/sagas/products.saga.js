@@ -6,16 +6,17 @@ function* productSaga () {
 }; // end productSaga
 
 const getProduct = function* () {
-
   try {
     const response = yield axios.get('/api/products');
 
     yield put({
       type: 'SET_PRODUCT_LIST',
-      payload: response
-    })
+      payload: response.data
+    });
   }
   catch (err) {
     console.log(err);
-  }
+  };
 }; // end getProduct
+
+export default productSaga;
