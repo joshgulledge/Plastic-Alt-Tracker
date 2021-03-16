@@ -36,6 +36,12 @@ function Nav() {
           </>
         )}
 
+        {user.authority === 'ADMIN' && (
+          <Link className="navLink" to="/addProduct">
+            Add Product
+          </Link>
+        )}
+
       </div>
     </div>
   );

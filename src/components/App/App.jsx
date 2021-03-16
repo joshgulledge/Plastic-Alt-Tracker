@@ -85,6 +85,10 @@ function App() {
             <UserLikes />
           </Route>
 
+          <Route exact path='/addProduct'>
+            {/* <UserLikes /> */}
+          </Route>
+
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
             <h1>404</h1>
