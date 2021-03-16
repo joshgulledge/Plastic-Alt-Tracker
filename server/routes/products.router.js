@@ -20,10 +20,8 @@ router.get('/', (req, res) => {
  * POST route template
  */
 router.post('/', (req, res) => {
-  console.log('in the server post', req.body);
-
   const newProduct = req.body.newProduct;
-
+  // set product info in as array, prevents injection
   const sendMe = [newProduct.brand, newProduct.category, newProduct.image_url, newProduct.website_link, newProduct.description, newProduct.asin_number];
 
   const SQLtext = `
@@ -34,7 +32,6 @@ router.post('/', (req, res) => {
     `; // end SQLtext
 
     pool.query(SQLtext, sendMe).then(dbRes => {
-      console.log('made it to pool.query');
       res.sendStatus(200);
     }).catch(err => {
       console.log('Something happened, product not added 💥', err);
