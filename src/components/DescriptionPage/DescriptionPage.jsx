@@ -18,17 +18,32 @@ const DescriptionPage = function () {
     })
   }; // ene likeProduct
 
+  const deleteProduct = function () { 
+    dispatch({
+      type: 'PRODUCT_HATED',
+      payload: {
+        product,
+        user
+      }
+    })
+  }; // end deleteProduct
+
   const hateProduct = function () {
     console.log('product hated');
   }; // end hateProduct
+
   return (
     <div>
       <h2>{product.brand}</h2>
       <p>{product.description}</p>
       <img src={product.image_url} alt={product.description} width='12%' />
       <p><a href={product.website_link}>See Product on Amazon</a></p>
-      <button onClick={likeProduct}>Like this Product</button>
-      <button onClick={hateProduct}>Hate this Product</button>
+      <div>
+        <button onClick={likeProduct}>Like this Product</button>
+        <button onClick={hateProduct}>Hate this Product</button>
+      </div>
+      {user.authority === 'ADMIN' && <button onClick={deleteProduct}>Delete this product</button> }
+      
     </div>
   )
 }; // end DescriptionPage

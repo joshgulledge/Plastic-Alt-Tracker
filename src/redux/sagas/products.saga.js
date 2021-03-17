@@ -5,13 +5,22 @@ function* productSaga () {
   yield takeEvery('GET_PRODUCT', getProduct)
   yield takeEvery('ADD_PRODUCT', addProduct);
   yield takeEvery('PRODUCT_LIKED', productLiked)
+  yield takeEvery('PRODUCT_HATED', productHated)
 }; // end productSaga
+
+const productHated = function* (action) {
+  try {
+    yield axios.post('/api/products/hate', {update: action.payload});
+  }
+  catch (err) {
+    console.log('something went wrong in the hate 💥', err);
+  }
+}; // end productHated
 
 const productLiked = function* (action) {
   try {
     yield axios.post('/api/products/likes', {update: action.payload});
 
-    console.log('it worked');
   }
   catch (err) {
     console.log('something went wrong in the like💥', err)
@@ -35,6 +44,7 @@ const addProduct = function* (action) {
 
 
 const getProduct = function* () {
+  // first get all the products
   try {
     const response = yield axios.get('/api/products');
     // send info from db to redux store
@@ -46,6 +56,8 @@ const getProduct = function* () {
   catch (err) {
     console.log(err);
   };
+  // second get liked/hated products
+  
 }; // end getProduct
 
 export default productSaga;
