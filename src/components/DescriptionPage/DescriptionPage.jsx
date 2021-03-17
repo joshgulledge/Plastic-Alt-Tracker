@@ -20,16 +20,22 @@ const DescriptionPage = function () {
 
   const deleteProduct = function () { 
     dispatch({
-      type: 'PRODUCT_HATED',
+      type: 'PRODUCT DELETED',
       payload: {
-        product,
-        user
+        product
       }
     })
   }; // end deleteProduct
 
   const hateProduct = function () {
     console.log('product hated');
+    dispatch({
+      type: 'PRODUCT_HATED',
+      payload: {
+        product,
+        user
+      }
+    })
   }; // end hateProduct
 
   return (
