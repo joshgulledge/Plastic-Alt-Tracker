@@ -7,17 +7,7 @@ const DescriptionPage = function () {
   // get redux stored information
   const product = useSelector(store => store.products.singleProduct);
   const user = useSelector(store => store.user);
-
-  const likeProduct = function () {
-    dispatch({
-      type: 'PRODUCT_LIKED',
-      payload: {
-        product,
-        user
-      }
-    })
-  }; // ene likeProduct
-
+  
   const deleteProduct = function () { 
     dispatch({
       type: 'PRODUCT DELETED',
@@ -25,13 +15,25 @@ const DescriptionPage = function () {
     });
   }; // end deleteProduct
 
+  const likeProduct = function () {
+    dispatch({
+      type: 'PRODUCT_PREFERENCE',
+      payload: {
+        product,
+        user,
+        preference: 1 // this difference is checked in the product router js file
+      }
+    })
+  }; // ene likeProduct
+
   const hateProduct = function () {
     console.log('product hated');
     dispatch({
-      type: 'PRODUCT_HATED',
+      type: 'PRODUCT_PREFERENCE',
       payload: {
         product,
-        user
+        user,
+        preference: 2 // this difference is checked in the product router js file
       }
     })
   }; // end hateProduct

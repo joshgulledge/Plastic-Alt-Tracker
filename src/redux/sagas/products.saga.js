@@ -4,15 +4,14 @@ import axios from 'axios';
 function* productSaga () {
   yield takeEvery('GET_PRODUCT', getProduct)
   yield takeEvery('ADD_PRODUCT', addProduct);
-  yield takeEvery('PRODUCT_LIKED', productLiked);
-  yield takeEvery('PRODUCT_HATED', productHated);
+  yield takeEvery('PRODUCT_PREFERENCE', productPreference);
   yield takeEvery('PRODUCT DELETED', productDelete);
 }; // end productSaga
 
 const productDelete = function* (action) {
   try {
     console.log('...in delete...');
-    
+
    axios.delete(`/api/products/${action.payload}`);
 
   }
@@ -21,20 +20,10 @@ const productDelete = function* (action) {
   }
 }; // end productDelete
 
-const productHated = function* (action) {
-  try {
-    console.log('in hated');
 
-    yield axios.post('/api/products/hate', {update: action.payload});
-  }
-  catch (err) {
-    console.log('something went wrong in the hate 💥', err);
-  }
-}; // end productHated
-
-const productLiked = function* (action) {
+const productPreference = function* (action) {
   try {
-    yield axios.post('/api/products/likes', {update: action.payload});
+    yield axios.post('/api/products/pref', {update: action.payload});
 
   }
   catch (err) {

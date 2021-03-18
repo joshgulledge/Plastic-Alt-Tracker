@@ -75,25 +75,27 @@ router.delete('/:id', (req, res) => {
 
 }); // end delete route
 
-// -------------------------------------------
-// -------- handle product likes here --------  
 
-router.post('/likes', (req, res) => {
-  // take the info from inside obj
+// -------------------------------------------------
+// -------- handle product likes/hates here --------  
+
+router.post('/pref', (req, res) => {
+  // grab the info from inside obj
   const userInfo = req.body.update.user;
   const productInfo = req.body.update.product;
-  // make the array to send  1 is for like 2 is for hate
+  const LikeorHate = req.body.update.preference;
+
   const sendMe = [userInfo.id, productInfo.id];
+  // first we have to check if the data already has information
   const checkSQL = `
     SELECT "product_user".user_preferences FROM "product_user"
     WHERE "product_user".product_id = $2 AND "product_user".user_id = $1;
   `;
-
   pool.query(checkSQL, sendMe).then(dbRes => {
-
     // if there is no data yet, send an insert
     if (dbRes.rows.length === 0) {
-      const insertData = [...sendMe, 1, 'reasons go here'];
+      // use ternary to see if we need to send a like or a hate
+      const insertData = [...sendMe, `${LikeorHate == 1 ? 1 : 2}`, 'reasons go here'];
       const insertSQL = `
       INSERT INTO "product_user"
       ("user_id", "product_id", "user_preferences", "reason")
@@ -101,7 +103,6 @@ router.post('/likes', (req, res) => {
       ($1, $2, $3, $4)
       `;
       pool.query(insertSQL, insertData).then(response => {
-        console.log('the data was inserted 🎉');
         res.sendStatus(200);
       }).catch(err => {
         console.log('error in the insert 💥', err);
@@ -110,14 +111,13 @@ router.post('/likes', (req, res) => {
     
     // if there is already data, update that data
     if (dbRes.rows.length > 0) {
-      const updateData = [...sendMe, 1, 'reasons go here'];
+      const updateData = [...sendMe, `${LikeorHate == 1 ? 1 : 2}`, 'reasons go here'];
       const updateSQL = `
         UPDATE "product_user"
         SET "user_preferences" = $3, "reason" = $4
         WHERE "product_user".user_id = $1 AND "product_user".product_id = $2;
       `;
       pool.query(updateSQL, updateData).then(response => {
-        console.log('data has been updated 🎉');
         res.sendStatus(200);
       }).catch(err => {
         console.log('error in the update 💥', err);
@@ -125,36 +125,10 @@ router.post('/likes', (req, res) => {
       });
     }; // end update data
   }).catch(err => {
-    console.log('something happened in the like post query 💥', err);
+    console.log('something happened in the pref post query 💥', err);
     res.sendStatus(500);
   })
-}); // end likes route
-
-// --------- hate products -------
-router.post('/hate', (req, res) => {
-  // take the info from inside obj
-  const userInfo = req.body.update.user;
-  const productInfo = req.body.update.product;
-  // make the array to send  1 is for like 2 is for hate
-  const sendMe = [userInfo.id, productInfo.id, 2, 'reason will go here'];
-
-  const SQLtext = `
-    INSERT INTO "product_user"
-    ("user_id", "product_id", "user_preferences", "reason")
-    VALUES
-    ($1, $2, $3, $4)
-  `;
-
-  // Update table where uder id = something 
-  // and product id = soemthing
-
-  pool.query(SQLtext, sendMe).then(dbRes => {
-    res.sendStatus(200);
-  }).catch(err => {
-    console.log('something happened in the like post query 💥', err);
-    res.sendStatus(500);
-  });
-}); // end hates route
+}); // end preference route
 
 
 module.exports = router;
