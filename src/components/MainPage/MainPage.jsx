@@ -13,7 +13,6 @@ function MainPage() {
 
   useEffect(() => {
     dispatch({type: 'GET_PRODUCT'});
-    
   }, [])
 
   return (

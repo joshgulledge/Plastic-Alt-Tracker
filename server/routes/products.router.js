@@ -8,13 +8,23 @@ const router = express.Router();
 router.get('/', (req, res) => {
   // GET the products from the Database
   const SQLtext = `SELECT * FROM "products";`
-
+  // this gets all products
   pool.query(SQLtext).then(dbRes => {
-    // send the results back
-
-    // put the get likes there
-
-    res.send(dbRes.rows);
+  // we also want all the user likes
+  const userLikesSQL = `
+    SELECT * FROM "product_user"
+    WHERE "product_user".user_id = $1;
+  `;
+  pool.query(userLikesSQL, [req.user.id]).then(response => {
+    res.send({
+      products: dbRes.rows,
+      preferences: response.rows
+    });
+  }).catch(err => {
+    console.log('error in the get product likes 💥', err);
+    res.sendStatus(500);
+  })
+    
   }).catch(err => {
     // show the error
     console.log('💥 Error! ', err);
@@ -81,11 +91,11 @@ router.delete('/:id', (req, res) => {
 
 router.post('/pref', (req, res) => {
   // grab the info from inside obj
-  const userInfo = req.body.update.user;
-  const productInfo = req.body.update.product;
+  const userInfo = req.user.id;
+  const productInfo = req.body.update.product.id;
   const LikeorHate = req.body.update.preference;
 
-  const sendMe = [userInfo.id, productInfo.id];
+  const sendMe = [userInfo, productInfo];
   // first we have to check if the data already has information
   const checkSQL = `
     SELECT "product_user".user_preferences FROM "product_user"

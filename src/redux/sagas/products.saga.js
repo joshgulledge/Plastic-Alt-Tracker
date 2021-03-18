@@ -20,7 +20,6 @@ const productDelete = function* (action) {
   }
 }; // end productDelete
 
-
 const productPreference = function* (action) {
   try {
     yield axios.post('/api/products/pref', {update: action.payload});
@@ -51,16 +50,21 @@ const getProduct = function* () {
   // first get all the products
   try {
     const response = yield axios.get('/api/products');
-    // send info from db to redux store
+    // send product info to redux store
     yield put({
       type: 'SET_PRODUCT_LIST',
-      payload: response.data
+      payload: response.data.products
+    });
+
+    // send preference info to redux store
+    yield put ({
+      type: 'SET_PREFERENCE_LIST',
+      payload: response.data.preferences
     });
   }
   catch (err) {
     console.log(err);
   };
-  // second get liked/hated products
   
 }; // end getProduct
 
