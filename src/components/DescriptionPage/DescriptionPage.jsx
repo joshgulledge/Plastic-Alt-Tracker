@@ -21,10 +21,8 @@ const DescriptionPage = function () {
   const deleteProduct = function () { 
     dispatch({
       type: 'PRODUCT DELETED',
-      payload: {
-        product
-      }
-    })
+      payload: product.id
+    });
   }; // end deleteProduct
 
   const hateProduct = function () {

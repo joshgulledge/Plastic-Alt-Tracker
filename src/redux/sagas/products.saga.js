@@ -11,7 +11,10 @@ function* productSaga () {
 
 const productDelete = function* (action) {
   try {
-  //  axios.delete()
+    console.log('...in delete...');
+    
+   axios.delete(`/api/products/${action.payload}`);
+
   }
   catch (err) {
     console.log('something went wrong in the delete 💥', err)

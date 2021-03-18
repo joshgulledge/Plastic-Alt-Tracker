@@ -4,7 +4,7 @@ const router = express.Router();
 
 // ---------------------------------------
 // -------- get and post products -------- 
- 
+
 router.get('/', (req, res) => {
   // GET the products from the Database
   const SQLtext = `SELECT * FROM "products";`
@@ -16,9 +16,10 @@ router.get('/', (req, res) => {
     // show the error
     console.log('💥 Error! ', err);
     res.sendStatus(500);
-  });
+  }); // end pool query
 }); // end the get products route
 
+// ------- post -------
 router.post('/', (req, res) => {
   const newProduct = req.body.newProduct;
   // set product info in as array, prevents injection
@@ -37,7 +38,39 @@ router.post('/', (req, res) => {
       console.log('Something happened, product not added 💥', err);
       res.sendStatus(500);
     }); // end pool query
-});
+}); // end post route
+
+// ---------------------------
+// ------- delete route ------
+
+router.delete('/:id', (req, res) => {
+  console.log('inside router delete....');
+  // id of product we want to delete
+  const deleteItem = req.params.id;
+
+  // first delete the dependent data in the table
+  const SQLtext = `
+  DELETE FROM "product_user" WHERE "product_user".product_id = $1;
+  `;
+
+  pool.query(SQLtext, [deleteItem]).then(dbRes => {
+
+    // now delete the product in the database
+    const moreSQLtext = `
+      DELETE FROM "products" WHERE "products".id = $1;
+    `;
+    pool.query(moreSQLtext, [deleteItem]).then (dataRes => { 
+      res.sendStatus(200);
+    }).catch (err => {
+      console.log('something happened in the delete server router... product 💥 ', err);
+    }); // end delete product
+
+  }).catch(err => {
+    console.log('something happened in the delete server router.... dependent data 💥', err);
+    res.sendStatus(500);
+  }); // end delete dependant data
+
+}); // end delete route
 
 // -------------------------------------------
 // -------- handle product likes here --------  
@@ -62,8 +95,9 @@ router.post('/likes', (req, res) => {
     console.log('something happened in the like post query 💥', err);
     res.sendStatus(500);
   })
-}); // end post likes
+}); // end likes route
 
+// --------- hate products -------
 router.post('/hate', (req, res) => {
   // take the info from inside obj
   const userInfo = req.body.update.user;
@@ -86,9 +120,8 @@ router.post('/hate', (req, res) => {
   }).catch(err => {
     console.log('something happened in the like post query 💥', err);
     res.sendStatus(500);
-  })
-
-}); // end post likes
+  });
+}); // end hates route
 
 
 module.exports = router;
