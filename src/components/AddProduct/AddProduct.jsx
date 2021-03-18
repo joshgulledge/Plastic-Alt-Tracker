@@ -63,7 +63,7 @@ const AddProduct = function () {
 
         <input value={description} type="text" placeholder="Product Description" onChange={(e)=>setDescription(e.target.value)} />
 
-        <input value={asin} type="number" placeholder="ASIN number" onChange={(e)=>setAsin(e.target.value)} />
+        <input value={asin} type="text" placeholder="ASIN number" onChange={(e)=>setAsin(e.target.value)} />
 
         <button onClick={buttonClicked}>Click Me</button>
       </form>
