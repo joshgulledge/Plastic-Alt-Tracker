@@ -11,6 +11,9 @@ router.get('/', (req, res) => {
 
   pool.query(SQLtext).then(dbRes => {
     // send the results back
+
+    // put the get likes there
+
     res.send(dbRes.rows);
   }).catch(err => {
     // show the error
@@ -80,17 +83,47 @@ router.post('/likes', (req, res) => {
   const userInfo = req.body.update.user;
   const productInfo = req.body.update.product;
   // make the array to send  1 is for like 2 is for hate
-  const sendMe = [userInfo.id, productInfo.id, 1, 'reason will go here'];
-
-  const SQLtext = `
-    INSERT INTO "product_user"
-    ("user_id", "product_id", "user_preferences", "reason")
-    VALUES
-    ($1, $2, $3, $4)
+  const sendMe = [userInfo.id, productInfo.id];
+  const checkSQL = `
+    SELECT "product_user".user_preferences FROM "product_user"
+    WHERE "product_user".product_id = $2 AND "product_user".user_id = $1;
   `;
 
-  pool.query(SQLtext, sendMe).then(dbRes => {
-    res.sendStatus(200);
+  pool.query(checkSQL, sendMe).then(dbRes => {
+
+    // if there is no data yet, send an insert
+    if (dbRes.rows.length === 0) {
+      const insertData = [...sendMe, 1, 'reasons go here'];
+      const insertSQL = `
+      INSERT INTO "product_user"
+      ("user_id", "product_id", "user_preferences", "reason")
+      VALUES
+      ($1, $2, $3, $4)
+      `;
+      pool.query(insertSQL, insertData).then(response => {
+        console.log('the data was inserted 🎉');
+        res.sendStatus(200);
+      }).catch(err => {
+        console.log('error in the insert 💥', err);
+      });
+    } ; // end if no data
+    
+    // if there is already data, update that data
+    if (dbRes.rows.length > 0) {
+      const updateData = [...sendMe, 1, 'reasons go here'];
+      const updateSQL = `
+        UPDATE "product_user"
+        SET "user_preferences" = $3, "reason" = $4
+        WHERE "product_user".user_id = $1 AND "product_user".product_id = $2;
+      `;
+      pool.query(updateSQL, updateData).then(response => {
+        console.log('data has been updated 🎉');
+        res.sendStatus(200);
+      }).catch(err => {
+        console.log('error in the update 💥', err);
+        res.sendStatus(500);
+      });
+    }; // end update data
   }).catch(err => {
     console.log('something happened in the like post query 💥', err);
     res.sendStatus(500);
