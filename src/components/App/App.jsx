@@ -16,6 +16,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import DescriptionPage from '../DescriptionPage/DescriptionPage'
 import UserLikes from '../UserLikes/UserLikes';
+import UserHates from '../UserHates/UserHates';
 import AddProduct from '../AddProduct/AddProduct';
 // styling
 import './App.css';
@@ -82,6 +83,10 @@ function App() {
 
           <Route exact path='/myLikes'>
             <UserLikes />
+          </Route>
+
+          <Route exact path='/myHates'>
+            <UserHates />
           </Route>
 
           <Route exact path='/addProduct'>

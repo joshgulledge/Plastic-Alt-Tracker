@@ -20,7 +20,6 @@ const DescriptionPage = function () {
       type: 'PRODUCT_PREFERENCE',
       payload: {
         product,
-        user,
         preference: 1 // this difference is checked in the product router js file
       }
     })
@@ -32,7 +31,6 @@ const DescriptionPage = function () {
       type: 'PRODUCT_PREFERENCE',
       payload: {
         product,
-        user,
         preference: 2 // this difference is checked in the product router js file
       }
     })
