@@ -9,13 +9,10 @@ const SingleProduct = function ({product}) {
   const dispatch = useDispatch();
 
   const imageClick = function () {
-    console.log('image was clicked');
-    
     dispatch({
       type: 'SET_SINGLE_PRODUCT',
       payload: product
     }); // end dispatch
-
     history.push('/description')
   }; // end imageClick
 

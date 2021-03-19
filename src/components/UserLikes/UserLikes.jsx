@@ -1,7 +1,12 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+
 
 const UserLikes = function () {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   // get the preferences from redux
   const likedList = useSelector(store => store.products.userPreference); // contains id of likes
   const allProducts = useSelector(store => store.products.productList); // contains all products
@@ -27,6 +32,14 @@ const UserLikes = function () {
     makeProductList();
   }, []);
 
+  const imageClick = function (product) {
+    dispatch({
+      type: 'SET_SINGLE_PRODUCT',
+      payload: product
+    }); // end dispatch
+    history.push('/description')
+  }; // end imageClick
+
   return (
     <div>
       <h3>
@@ -36,7 +49,7 @@ const UserLikes = function () {
       {likedProductList.map(product => {
         return (
           <div key={product.id}>
-            <img src={product.image_url} width='20%' />
+            <img src={product.image_url} width='20%' onClick={() => imageClick(product)} />
           </div>
         )
       })}
