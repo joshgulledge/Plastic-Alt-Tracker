@@ -2,14 +2,11 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 
 const UserLikes = function () {
-  // get the likes from redux
+  // get the preferences from redux
   const likedList = useSelector(store => store.products.userPreference); // contains id of likes
   const allProducts = useSelector(store => store.products.productList); // contains all products
   // this will be the list of liked products
   const [likedProductList, setLikedProductList] = useState([]);
-
-  console.log('liked list is ', likedList);
-  console.log('all product is ', allProducts);
 
   const makeProductList = function () {
     // loop through the lists and if the product is in the liked list, add to liked product array
@@ -30,8 +27,6 @@ const UserLikes = function () {
     makeProductList();
   }, []);
 
-  console.log(likedProductList);  
-
   return (
     <div>
       <h3>
@@ -40,7 +35,9 @@ const UserLikes = function () {
 
       {likedProductList.map(product => {
         return (
-          <img src={product.image_url} width='20%' />
+          <div key={product.id}>
+            <img src={product.image_url} width='20%' />
+          </div>
         )
       })}
 
