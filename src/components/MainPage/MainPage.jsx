@@ -9,7 +9,8 @@ function MainPage() {
   const dispatch = useDispatch();
 
   const user = useSelector((store) => store.user);
-  const productList = useSelector(store => store.products.productList)
+  const productList = useSelector(store => store.products.productList);
+  
 
   useEffect(() => {
     dispatch({type: 'GET_PRODUCT'});

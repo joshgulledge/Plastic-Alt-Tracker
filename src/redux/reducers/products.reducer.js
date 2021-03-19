@@ -19,7 +19,7 @@ const singleProduct = function (state = {}, action) {
   };
 }; // end singleProduct
 
-const userPreference = function (state = {}, action) {
+const userPreference = function (state = [], action) {
   switch (action.type) {
     case 'SET_PREFERENCE_LIST':
       return action.payload;
