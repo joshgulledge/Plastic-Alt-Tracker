@@ -1,11 +1,12 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // ---------------------------------------
 // -------- get and post products -------- 
 
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   // GET the products from the Database
   const SQLtext = `SELECT * FROM "products";`
   // this gets all products
@@ -33,7 +34,11 @@ router.get('/', (req, res) => {
 }); // end the get products route
 
 // ------- post -------
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
+
+  // only admin can post new products
+  if (req.user.authority !== 'ADMIN') return;
+
   const newProduct = req.body.newProduct;
   // set product info in as array, prevents injection
   const sendMe = [newProduct.brand, newProduct.category, newProduct.image_url, newProduct.website_link, newProduct.description, newProduct.asin_number];
@@ -56,7 +61,11 @@ router.post('/', (req, res) => {
 // ---------------------------
 // ------- delete route ------
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', rejectUnauthenticated, (req, res) => {
+
+  // only admin can delete products
+  if (req.user.authority !== 'ADMIN') return;
+
   console.log('inside router delete....');
   // id of product we want to delete
   const deleteItem = req.params.id;
@@ -89,7 +98,7 @@ router.delete('/:id', (req, res) => {
 // -------------------------------------------------
 // -------- handle product likes/hates here --------  
 
-router.post('/pref', (req, res) => {
+router.post('/pref', rejectUnauthenticated, (req, res) => {
   // grab the info from inside obj
   const userInfo = req.user.id;
   const productInfo = req.body.update.product.id;
