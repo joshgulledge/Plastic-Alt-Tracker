@@ -30,8 +30,13 @@ function Nav() {
         {user.id && (
           <>
             <Link className="navLink" to="/myLikes">
-             My Likes
+             My Liked Products
             </Link>
+
+            <Link className="navLink" to="/myHates">
+             My Hated Products
+            </Link>
+
             <LogOutButton className="navLink" />
           </>
         )}

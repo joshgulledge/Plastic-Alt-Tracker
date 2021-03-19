@@ -24,6 +24,10 @@ const productPreference = function* (action) {
   try {
     yield axios.post('/api/products/pref', {update: action.payload});
 
+    // here we want to update our list of likes which is done when we get the products
+    yield put({
+      type: 'GET_PRODUCT'
+    });
   }
   catch (err) {
     console.log('something went wrong in the like💥', err)
