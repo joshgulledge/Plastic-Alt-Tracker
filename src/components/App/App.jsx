@@ -39,13 +39,12 @@ function App() {
           <Redirect exact from="/" to="/home" />
           
           {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:3000/user will show the UserPage if the user is logged in.
+            Visiting localhost:3000/mainPage will show the MainPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:3000/user */}
+            Even though it seems like they are different pages, the mainPage is always on localhost:3000/mainPage */}
           <ProtectedRoute
             exact
             path="/mainPage">
-              
             <MainPage />
           </ProtectedRoute>
 
@@ -77,21 +76,25 @@ function App() {
             <LandingPage />
           </ProtectedRoute>
 
-          <Route exact path='/description'>
+          <ProtectedRoute
+           exact path='/description'>
             <DescriptionPage />
-          </Route>
+          </ProtectedRoute>
 
-          <Route exact path='/myLikes'>
+          <ProtectedRoute 
+          exact path='/myLikes'>
             <UserLikes />
-          </Route>
+          </ProtectedRoute>
 
-          <Route exact path='/myHates'>
+          <ProtectedRoute 
+          exact path='/myHates'>
             <UserHates />
-          </Route>
+          </ProtectedRoute>
 
-          <Route exact path='/addProduct'>
+          <ProtectedRoute 
+          exact path='/addProduct'>
             <AddProduct />
-          </Route>
+          </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>
