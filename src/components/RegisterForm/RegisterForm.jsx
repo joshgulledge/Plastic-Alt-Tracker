@@ -49,7 +49,7 @@ function RegisterForm() {
             type="text"
             // name="username"
             value={username}
-            // required
+            required
             onChange={(event) => setUsername(event.target.value)}
             variant='filled'
           />
@@ -62,14 +62,14 @@ function RegisterForm() {
             type="password"
             // name="password"
             value={password}
-            // required
+            required
             onChange={(event) => setPassword(event.target.value)}
             variant='filled'
           />
         {/* </label> */}
       </div>
       <div className={classes.inputs}>
-        <Button spacing={2} variant='contained' color='primary' type="submit" name="submit">Register</Button>
+        <Button variant='contained' color='primary' type="submit" name="submit">Register</Button>
       </div>
     </form>
   );

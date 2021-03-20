@@ -2,7 +2,21 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {useSelector} from 'react-redux';
 
+// material ui components
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, TextField } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  inputs: {
+    margin: theme.spacing(1),
+    width: '25ch',
+  },
+}));
+
 function LoginForm() {
+  // matierial ui
+  const classes = useStyles();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(store => store.errors);
@@ -32,32 +46,34 @@ function LoginForm() {
           {errors.loginMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
+      <div className={classes.inputs}>
+        {/* <label htmlFor="username">
+          Username: */}
+          <TextField label='UserName'
             type="text"
-            name="username"
+            // name="username"
             required
             value={username}
             onChange={(event) => setUsername(event.target.value)}
+            variant='filled'
           />
-        </label>
+        {/* </label> */}
       </div>
-      <div>
+      <div className={classes.inputs}>
         <label htmlFor="password">
           Password:
-          <input
+          <TextField label='Password'
             type="password"
-            name="password"
+            // name="password"
             required
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            variant='filled'
           />
         </label>
       </div>
       <div>
-        <input className="btn" type="submit" name="submit" value="Log In" />
+        <Button variant='contained' color='primary' className="btn" type="submit" name="submit" >Log In</Button>
       </div>
     </form>
   );
