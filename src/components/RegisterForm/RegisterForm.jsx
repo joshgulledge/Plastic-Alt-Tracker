@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+// material ui components
+import { makeStyles } from '@material-ui/core/styles';
+import { Button, TextField } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  inputs: {
+    margin: theme.spacing(1),
+    width: '25ch',
+  },
+}));
+
+
 function RegisterForm() {
+  // matierial ui
+  const classes = useStyles();
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector((store) => store.errors);
@@ -27,32 +42,34 @@ function RegisterForm() {
           {errors.registrationMessage}
         </h3>
       )}
-      <div>
-        <label htmlFor="username">
-          Username:
-          <input
+      <div className={classes.inputs}>
+        {/* <label htmlFor="username">
+          Username: */}
+          <TextField label='UserName'
             type="text"
-            name="username"
+            // name="username"
             value={username}
-            required
+            // required
             onChange={(event) => setUsername(event.target.value)}
+            variant='filled'
           />
-        </label>
+        {/* </label> */}
       </div>
-      <div>
-        <label htmlFor="password">
-          Password:
-          <input
+      <div className={classes.inputs}>
+        {/* <label htmlFor="password">
+          Password: */}
+          <TextField label='Password'
             type="password"
-            name="password"
+            // name="password"
             value={password}
-            required
+            // required
             onChange={(event) => setPassword(event.target.value)}
+            variant='filled'
           />
-        </label>
+        {/* </label> */}
       </div>
-      <div>
-        <input className="btn" type="submit" name="submit" value="Register" />
+      <div className={classes.inputs}>
+        <Button spacing={2} variant='contained' color='primary' type="submit" name="submit">Register</Button>
       </div>
     </form>
   );

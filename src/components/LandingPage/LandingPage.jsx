@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import './LandingPage.css';
-
-// CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
+
+// material ui components
+import Button from '@material-ui/core/Button';
 
 function LandingPage() {
   const history = useHistory();
@@ -21,9 +22,9 @@ function LandingPage() {
           <RegisterForm />
           <center>
             <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
+            <Button variant="contained" color="primary" className="btn btn_sizeSm" onClick={onLogin}>
               Login
-            </button>
+            </Button>
           </center>
         </div>
           <div className='landing_page_about'>
