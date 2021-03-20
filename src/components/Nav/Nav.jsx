@@ -2,13 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
-import {useSelector} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 // material ui component
-import { makeStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+import { fade, makeStyles } from '@material-ui/core/styles';
+import SearchIcon from '@material-ui/icons/Search';
 import { AppBar, Toolbar,
-  Typography, Button, IconButton } from '@material-ui/core';
+  Typography, Button, TextField } from '@material-ui/core';
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -20,14 +20,27 @@ import { AppBar, Toolbar,
     title: {
       flexGrow: 1,
     },
+    searchContainer: {
+      display: 'flex',
+      backgroundColor: fade(theme.palette.common.white, 0.15),
+      borderRadius: '10px',
+      padding:'10px',
+      margin: '5px', 
+    },
+    searchIcon: {
+      alignSelf: 'flex-end',
+      marginBottom: '5px'
+    }
   }));
 
 function Nav() {
   // material ui
   const classes = useStyles();
-  
+
   // grab the user from redux
   const user = useSelector((store) => store.user);
+  // use dispatch
+  const dispatch = useDispatch();
 
   let loginLinkData = {
     path: '/login',
@@ -40,37 +53,91 @@ function Nav() {
   }
 
   return (
-    <div className="nav">
-      <Link to="/home">
-        <h2 className="nav-title">Plastic Alt Tracker</h2>
-      </Link>
-      <div>
-        <Link className="navLink" to={loginLinkData.path}>
-          {loginLinkData.text}
-        </Link>
+    <div className={classes.root}>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h4" className={classes.title}>
+          Choking Plastic
+        </Typography>
+
+        <div className={classes.searchContainer}>
+          <SearchIcon className={classes.searchIcon}/>
+          <TextField label='Search by genre'/>
+        </div>
 
         {user.id && (
           <>
-            <Link className="navLink" to="/myLikes">
+
+          <Button color='inherit'>
+            <Link className="navLink" to={loginLinkData.path}>
+            {loginLinkData.text}
+          </Link>
+          </Button>
+
+          <Button color='inherit'>
+            <Link className='navLink' to="/myLikes">
              My Liked Products
             </Link>
+          </Button>
 
+          <Button color='inherit'>
             <Link className="navLink" to="/myHates">
              My Hated Products
             </Link>
+          </Button>
 
-            <LogOutButton className="navLink" />
+          <Button color='inherit'
+            onClick={() => dispatch({ type: 'LOGOUT' })}>
+            <span className="navLink">Log Out</span>
+          </Button>
+
+            {/* <LogOutButton className="navLink" /> */}
           </>
         )}
 
         {user.authority === 'ADMIN' && (
-          <Link className="navLink" to="/addProduct">
-            Add Product
-          </Link>
+          <Button color='inherit'>
+            <Link className="navLink" to="/addProduct">
+              Add Product
+            </Link>
+          </Button>
         )}
+        
+      </Toolbar>
+    </AppBar>
+  </div>
+    
+    // <div className="nav">
+    //   <Link to="/home">
+    //     <h2 className="nav-title">Plastic Alt Tracker</h2>
+    //   </Link>
+    //   <div>
+        // <Link className="navLink" to={loginLinkData.path}>
+        //   {loginLinkData.text}
+        // </Link>
 
-      </div>
-    </div>
+        // {user.id && (
+        //   <>
+        //     <Link className="navLink" to="/myLikes">
+        //      My Liked Products
+        //     </Link>
+
+        //     <Link className="navLink" to="/myHates">
+        //      My Hated Products
+        //     </Link>
+
+        //     <LogOutButton className="navLink" />
+        //   </>
+        // )}
+
+        // {user.authority === 'ADMIN' && (
+        //   <Link className="navLink" to="/addProduct">
+        //     Add Product
+        //   </Link>
+        // )}
+
+    //   </div>
+    // </div>
   );
 }
 
