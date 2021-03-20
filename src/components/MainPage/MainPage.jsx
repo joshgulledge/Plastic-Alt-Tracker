@@ -5,7 +5,7 @@ import SingleProduct from '../SingleProduct/SingleProduct';
 
 // material ui components
 import { makeStyles } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import { Grid, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -31,7 +31,7 @@ function MainPage() {
 
   return (
     <div className="container">
-      <h2>This page will show a list of products</h2>
+      <Typography variant="h2" gutterBottom>All Products</Typography>
 
       <Grid container className={classes.grid}>
           {productList.length === 0 ? <div> Products are loading</div> : 

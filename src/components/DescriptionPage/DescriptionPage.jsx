@@ -1,5 +1,8 @@
 import { useSelector, useDispatch } from 'react-redux';
 
+// material ui
+import Button from '@material-ui/core/Button';
+
 
 const DescriptionPage = function () {
   // set up dispatch to use
@@ -43,10 +46,10 @@ const DescriptionPage = function () {
       <img src={product.image_url} alt={product.description} width='12%' />
       <p><a href={product.website_link}>See Product on Amazon</a></p>
       <div>
-        <button onClick={likeProduct}>Like this Product</button>
-        <button onClick={hateProduct}>Hate this Product</button>
+        <Button variant="contained" color="primary" onClick={likeProduct}>Like this Product</Button>
+        <Button variant="contained" color="primary" onClick={hateProduct}>Hate this Product</Button>
+      {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
       </div>
-      {user.authority === 'ADMIN' && <button onClick={deleteProduct}>Delete this product</button> }
       
     </div>
   )

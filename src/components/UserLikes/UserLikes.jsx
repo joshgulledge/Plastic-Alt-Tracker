@@ -17,7 +17,7 @@ const UserLikes = function () {
     // loop through the lists and if the product is in the liked list, add to liked product array
     const results = [];
     likedList.map(like => {
-      // check if its a like
+      // check if its a like, 2 represents hated products
      if (like.user_preferences === 2) return;
 
      const [result] = allProducts.filter(product => product.id === like.product_id);
