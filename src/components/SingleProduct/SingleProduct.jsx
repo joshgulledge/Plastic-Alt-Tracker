@@ -16,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
     // height: theme.spacing(62),
     padding: theme.spacing(2),
     textAlign: 'center',
-    backgroundColor: theme.palette.success.light,
   },
   grid: {
     flexGrow: 1,

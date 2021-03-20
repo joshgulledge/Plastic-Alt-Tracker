@@ -4,7 +4,29 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import {useSelector} from 'react-redux';
 
+// material ui component
+import { makeStyles } from '@material-ui/core/styles';
+import MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, Toolbar,
+  Typography, Button, IconButton } from '@material-ui/core';
+
+  const useStyles = makeStyles((theme) => ({
+    root: {
+      flexGrow: 1,
+    },
+    menuButton: {
+      marginRight: theme.spacing(2),
+    },
+    title: {
+      flexGrow: 1,
+    },
+  }));
+
 function Nav() {
+  // material ui
+  const classes = useStyles();
+  
+  // grab the user from redux
   const user = useSelector((store) => store.user);
 
   let loginLinkData = {
