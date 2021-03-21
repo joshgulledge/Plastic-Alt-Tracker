@@ -50,25 +50,28 @@ const AddProduct = function () {
   const buttonClicked = function (e) {
     e.preventDefault();
 
-    // dispatch({
-    //   type: 'ADD_PRODUCT',
-    //   payload: {
-    //     brand: productBrand,
-    //     category: productCategory,
-    //     image_url: imageUrl,
-    //     website_link: websiteUrl,
-    //     description: description,
-    //     asin_number: asin
-    //   }
-    // })
+    // check to make sure all categories are filled in
 
-    console.log(productBrand,
-      productCategory,
-      imageUrl,
-      websiteUrl,
-      description,
-      asin
-      );
+    // send the new product to sage then to db
+    dispatch({
+      type: 'ADD_PRODUCT',
+      payload: {
+        brand: productBrand,
+        category: productCategory,
+        image_url: imageUrl,
+        website_link: websiteUrl,
+        description: description,
+        asin_number: asin
+      }
+    })
+
+    // console.log(productBrand,
+    //   productCategory,
+    //   imageUrl,
+    //   websiteUrl,
+    //   description,
+    //   asin
+    //   );
 
       clearValues();
   }; // end buttonClicked

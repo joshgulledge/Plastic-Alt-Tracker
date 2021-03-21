@@ -2,14 +2,13 @@ import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import './Nav.css';
 import {useSelector, useDispatch} from 'react-redux';
+import { AppBar, Toolbar,
+  Typography, Button } from '@material-ui/core';
 
 // material ui component
-import { fade, makeStyles } from '@material-ui/core/styles';
-import SearchIcon from '@material-ui/icons/Search';
-import { AppBar, Toolbar,
-  Typography, Button, TextField,
-  MenuItem, FormControl, Select } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
+  // material ui styling object
   const useStyles = makeStyles((theme) => ({
     root: {
       flexGrow: 1,
@@ -19,18 +18,7 @@ import { AppBar, Toolbar,
     },
     title: {
       flexGrow: 1,
-    },
-    searchContainer: {
-      display: 'flex',
-      borderRadius: '10px',
-      padding:'10px',
-      margin: '5px', 
-    },
-    searchIcon: {
-      alignSelf: 'flex-end',
-      marginBottom: '10px'
-    },
-    
+    },  
   }));
 
 function Nav() {
@@ -42,9 +30,6 @@ function Nav() {
   // use dispatch
   const dispatch = useDispatch();
 
-  // local state for the search bar
-  const [searchCategory, setSearchCategory] = useState('');
-
   let loginLinkData = {
     path: '/login',
     text: 'Login / Register',
@@ -55,11 +40,6 @@ function Nav() {
     loginLinkData.text = 'Home';
   };
 
-  const handleSearch = function (event) {
-    setSearchCategory(event.target.value);
-    console.log(searchCategory);
-  }; // end handleSearch
-
   return (
     <div className={classes.root}>
     <AppBar position="static">
@@ -68,6 +48,7 @@ function Nav() {
           Choking Plastic
         </Typography>
 
+         {/* This is the search drop down select 
        {user.id && 
        ( <div className={classes.searchContainer}>
           <SearchIcon className={classes.searchIcon}/>
@@ -93,11 +74,11 @@ function Nav() {
             </Select>
           </FormControl>
         </div>
-        )}
+        )} */}
 
+              {/* Nav Bar Options   */}
         {user.id && (
           <>
-
           <Button color='inherit'>
             <Link className="navLink" to={loginLinkData.path}>
             {loginLinkData.text}
@@ -123,6 +104,7 @@ function Nav() {
           </>
         )}
 
+      {/* Nav Bar Conditional option -only for admin */}
         {user.authority === 'ADMIN' && (
           <Button color='inherit'>
             <Link className="navLink" to="/addProduct">
