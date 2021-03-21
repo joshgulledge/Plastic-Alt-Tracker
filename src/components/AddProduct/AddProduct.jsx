@@ -1,8 +1,32 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import swal from 'sweetalert';
+
+
+// material ui components
+import { makeStyles } from '@material-ui/core/styles';
+import { TextField, 
+  Button, MenuItem,
+  FormHelperText, FormControl, Select } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  inputs: {
+   margin: theme.spacing(2),
+  },
+  formControl: {
+    margin: theme.spacing(2),
+    minWidth: 180,
+  },
+  // selectEmpty: {
+  //   // marginTop: theme.spacing(2),
+  // },
+}));
 
 
 const AddProduct = function () {
+  // material ui
+  const classes = useStyles();
+
   // set dispatch for use
   const dispatch = useDispatch();
 
@@ -26,6 +50,9 @@ const AddProduct = function () {
   const buttonClicked = function (e) {
     e.preventDefault();
 
+    // check to make sure all categories are filled in
+
+    // send the new product to sage then to db
     dispatch({
       type: 'ADD_PRODUCT',
       payload: {
@@ -38,13 +65,13 @@ const AddProduct = function () {
       }
     })
 
-    console.log(productBrand,
-      productCategory,
-      imageUrl,
-      websiteUrl,
-      description,
-      asin
-      );
+    // console.log(productBrand,
+    //   productCategory,
+    //   imageUrl,
+    //   websiteUrl,
+    //   description,
+    //   asin
+    //   );
 
       clearValues();
   }; // end buttonClicked
@@ -52,20 +79,90 @@ const AddProduct = function () {
   return (
     <div>
       <h4>Add a product here</h4>
-      <form >
-        <input value={productBrand} type="text" placeholder="Item Brand" onChange={(e)=>setProductBrand(e.target.value)} />
+      <form>
+        <div>
+          <TextField
+            className={classes.inputs}
+            label='Item Brand'
+            variant='filled'
+            value={productBrand} 
+            type="text" 
+            onChange={(e)=>setProductBrand(e.target.value)} />
 
-        <input value={productCategory} type="text" placeholder="Category" onChange={(e)=>setProductCategory(e.target.value)} />
+          {/* <TextField
+            className={classes.inputs}
+            label='Product Category' 
+            variant='filled'
+            value={productCategory} 
+            type="text" 
+            onChange={(e)=>setProductCategory(e.target.value)} /> */}
 
-        <input value={imageUrl} type="text" placeholder="Image URL" onChange={(e)=>setImageUrl(e.target.value)} />
+          <FormControl variant="filled" className={classes.formControl}>
+            <Select
+              value={productCategory}
+              onChange={(e) => setProductCategory(e.target.value)}
+              displayEmpty
+              // className={classes.selectEmpty}
+              inputProps={{ 'aria-label': 'Without label' }}>
 
-        <input value={websiteUrl} type="text" placeholder="Website URL" onChange={(e)=>setWebsiteUrl(e.target.value)} />
+              <MenuItem value="" disabled>
+                Pick a Genre
+              </MenuItem>
+              <MenuItem value={'utensils'}>Kitchen Utensils</MenuItem>
+              <MenuItem value={'garbage bags'}>Garbage Bags</MenuItem>
+              <MenuItem value={'bottles'}>Water Bottles</MenuItem>
+              <MenuItem value={'personal'}>Personal Items</MenuItem>
+              <MenuItem value={'wraps'}>Food Wraps/SandwichBags</MenuItem>
+              <MenuItem value={'other'}>Other</MenuItem>
+            </Select>
+            <FormHelperText>Plastic Item This Product Replaces</FormHelperText>
+          </FormControl>
+        </div>
 
-        <input value={description} type="text" placeholder="Product Description" onChange={(e)=>setDescription(e.target.value)} />
+        <div>
+          <TextField
+            className={classes.inputs}
+            label='Image URL'
+            variant='filled' 
+            value={imageUrl} 
+            type="text" 
+            onChange={(e)=>setImageUrl(e.target.value)} />
 
-        <input value={asin} type="text" placeholder="ASIN number" onChange={(e)=>setAsin(e.target.value)} />
+          <TextField
+            className={classes.inputs}
+            label='Website Url'
+            variant='filled' 
+            value={websiteUrl} 
+            type="text" 
+            onChange={(e)=>setWebsiteUrl(e.target.value)} />
+        </div>
 
-        <button onClick={buttonClicked}>Click Me</button>
+        <div>
+          <TextField
+            className={classes.inputs}
+            label='Product Description'
+            variant='filled' 
+            value={description} 
+            type="text" 
+            onChange={(e)=>setDescription(e.target.value)} />
+
+          <TextField
+            className={classes.inputs}
+            label='ASIN number'
+            variant='filled' 
+            value={asin} 
+            type="text" 
+            onChange={(e)=>setAsin(e.target.value)} />
+        </div>
+
+
+        <Button 
+         className={classes.inputs}
+         variant='contained'
+         color='primary'
+         onClick={buttonClicked}>
+           Add Product To DataBase
+        </Button>
       </form>
     </div>
   )

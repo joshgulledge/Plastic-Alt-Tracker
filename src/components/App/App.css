@@ -2,11 +2,15 @@ html,
 body,
 #react-root {
   height: 100%;
+  
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
+  /* background-image: linear-gradient(to bottom right, #7392B7, #D8E1E9);
+  background-repeat: no-repeat;
+  background-size: cover; */
 }
 
 img {
