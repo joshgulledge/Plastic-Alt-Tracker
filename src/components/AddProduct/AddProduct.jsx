@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import swal from 'sweetalert';
+
 
 // material ui components
 import { makeStyles } from '@material-ui/core/styles';
@@ -48,17 +50,17 @@ const AddProduct = function () {
   const buttonClicked = function (e) {
     e.preventDefault();
 
-    dispatch({
-      type: 'ADD_PRODUCT',
-      payload: {
-        brand: productBrand,
-        category: productCategory,
-        image_url: imageUrl,
-        website_link: websiteUrl,
-        description: description,
-        asin_number: asin
-      }
-    })
+    // dispatch({
+    //   type: 'ADD_PRODUCT',
+    //   payload: {
+    //     brand: productBrand,
+    //     category: productCategory,
+    //     image_url: imageUrl,
+    //     website_link: websiteUrl,
+    //     description: description,
+    //     asin_number: asin
+    //   }
+    // })
 
     console.log(productBrand,
       productCategory,
