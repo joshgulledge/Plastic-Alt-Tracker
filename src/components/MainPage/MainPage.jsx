@@ -37,7 +37,7 @@ function MainPage() {
   // local state
   const [searchCategory, setSearchCategory] = useState('');
   // states from redux
-  const user = useSelector((store) => store.user);
+  const user = useSelector(store => store.user);
   const productList = useSelector(store => store.products.productList);
   
   // on page load do this
@@ -46,8 +46,14 @@ function MainPage() {
   }, []);
 
   const handleSearch = function (event) {
-    setSearchCategory(event.target.value);
+    console.log(searchCategory);
   }; // end handleSearch
+
+  // change the product list we loop through depending on search category 
+  // use case for williams favorite switch case
+  switch (searchCategory) {
+    
+  }
 
   return (
     <div className="container">
@@ -60,7 +66,10 @@ function MainPage() {
           className={classes.formControl}>
             <Select
               value={searchCategory}
-              onChange={handleSearch}
+              onChange={(e) => {
+                setSearchCategory(e.target.value);
+                handleSearch();
+              }}
               displayEmpty
               // className={classes.selectEmpty}
               inputProps={{ 'aria-label': 'Without label' }}>
@@ -76,6 +85,7 @@ function MainPage() {
               <MenuItem value={'wraps'}>Food Wraps/SandwichBags</MenuItem>
               <MenuItem value={'other'}>Other</MenuItem>
             </Select>
+            {/* <Button type='submit' variant='contained' color='primary'>Search</Button> */}
           </FormControl>
         </div>
 
