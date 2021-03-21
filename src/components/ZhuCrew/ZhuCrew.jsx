@@ -16,7 +16,7 @@
 
          <
 
-         
+
 //\
 V  \
  \  \_
@@ -34,8 +34,14 @@ V  \
  **/
 
  const ZhuCrew = function () {
+   const answer = alert('Are you a member of the Zhu Crew. Y for yes and n for no...');
 
-  return;
+    if (answer.toLowerCase() === "y") {
+      console.log('Congrats on the upcoming graduation!');
+    };
+    if (answer.toLowerCase() === "n") {
+      console.log('then why are you looking at my code?');
+    };
  }; // end ZhuCrew
 
  export default ZhuCrew;
