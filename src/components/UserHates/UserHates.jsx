@@ -14,16 +14,27 @@ const UserHates = function () {
   const [hatedProductList, setHatedProductList] = useState([]);
 
   const makeProductList = function () {
-    // loop through the lists and if the product is in the liked list, add to liked product array
     const results = [];
-    likedList.map(like => {
-      // check if its a hate
-     if (like.user_preferences === 1) return;
-
-     const [result] = allProducts.filter(product => product.id === like.product_id);
-     results.push(result);
-    }); // end like forEach
-    setHatedProductList(results);
+    // loop through preference list
+    likedList.map( preference => {
+      // if its not a hate return 
+      if (preference.user_preferences === 1) return;
+      // loop through the product list
+      allProducts.forEach( product => {
+        // where the ids match add that product info to a new obj
+        if ( product.id === preference.product_id) {
+          const newObj = {
+            name: product.brand,
+            image: product.image_url,
+            id: product.id,
+            reason: preference.reason
+          };
+          // add that new obj to a new array of obj
+          results.push(newObj)
+        }; // end if match
+      }); // end all products loop
+    }); // end the liked list loop
+    setHatedProductList(results)
   }; // end makeProductList
 
   useEffect(() => {
@@ -47,7 +58,11 @@ const UserHates = function () {
       {hatedProductList.map(product => {
         return (
           <div key={product.id}>
-            <img src={product.image_url} width='20%' onClick={() => imageClick(product)}/>
+            <img src={product.image} width='20%' onClick={() => imageClick(product)}/>
+            <span>
+              {product.reason}
+            </span>
+
           </div>
         )
       })}
