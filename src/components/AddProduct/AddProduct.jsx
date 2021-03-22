@@ -112,6 +112,7 @@ const AddProduct = function () {
               <MenuItem value={'garbage bags'}>Garbage Bags</MenuItem>
               <MenuItem value={'bottles'}>Water Bottles</MenuItem>
               <MenuItem value={'personal'}>Personal Items</MenuItem>
+              <MenuItem value={'soaps'}>Laundry/Soap containers</MenuItem>
               <MenuItem value={'wraps'}>Food Wraps/SandwichBags</MenuItem>
               <MenuItem value={'other'}>Other</MenuItem>
             </Select>

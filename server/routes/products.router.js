@@ -34,6 +34,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 }); // end the get products route
 
 // ------- post -------
+// this is the post for new products,
+// use preference post is further down
 router.post('/', rejectUnauthenticated, (req, res) => {
 
   // only admin can post new products
@@ -103,6 +105,7 @@ router.post('/pref', rejectUnauthenticated, (req, res) => {
   const userInfo = req.user.id;
   const productInfo = req.body.update.product.id;
   const LikeorHate = req.body.update.preference;
+  const reason = req.body.update.description;
 
   const sendMe = [userInfo, productInfo];
   // first we have to check if the data already has information
@@ -114,7 +117,7 @@ router.post('/pref', rejectUnauthenticated, (req, res) => {
     // if there is no data yet, send an insert
     if (dbRes.rows.length === 0) {
       // use ternary to see if we need to send a like or a hate
-      const insertData = [...sendMe, `${LikeorHate == 1 ? 1 : 2}`, 'reasons go here'];
+      const insertData = [...sendMe, LikeorHate, reason];
       const insertSQL = `
       INSERT INTO "product_user"
       ("user_id", "product_id", "user_preferences", "reason")
@@ -130,7 +133,7 @@ router.post('/pref', rejectUnauthenticated, (req, res) => {
     
     // if there is already data, update that data
     if (dbRes.rows.length > 0) {
-      const updateData = [...sendMe, `${LikeorHate == 1 ? 1 : 2}`, 'reasons go here'];
+      const updateData = [...sendMe, LikeorHate, reason];
       const updateSQL = `
         UPDATE "product_user"
         SET "user_preferences" = $3, "reason" = $4

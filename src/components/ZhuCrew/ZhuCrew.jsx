@@ -1,5 +1,7 @@
 //  for the Zhu Cohort
 
+import { LocationSearching } from "@material-ui/icons";
+
 /**
   
  
@@ -34,7 +36,7 @@ V  \
  **/
 
  const ZhuCrew = function () {
-   const answer = alert('Are you a member of the Zhu Crew. Y for yes and n for no...');
+   const answer = alert('Are you a member of the Zhu Crew. y for yes and n for no...');
 
     if (answer.toLowerCase() === "y") {
       console.log('Congrats on the upcoming graduation!');
@@ -42,6 +44,8 @@ V  \
     if (answer.toLowerCase() === "n") {
       console.log('then why are you looking at my code?');
     };
+
+    console.log("Thank you for your time. You can do it!");
  }; // end ZhuCrew
 
  export default ZhuCrew;
