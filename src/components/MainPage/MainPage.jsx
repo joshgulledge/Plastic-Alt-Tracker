@@ -39,51 +39,44 @@ function MainPage() {
 
   // local state
   const [searchCategory, setSearchCategory] = useState('');
-  const [displayArray, setDisplayArray] = useState('');
+  const [displayArray, setDisplayArray] = useState([]);
   // states from redux
   const user = useSelector(store => store.user);
   const productList = useSelector(store => store.products.productList);
   
   // on page load do this
   useEffect(() => {
-    dispatch({type: 'GET_PRODUCT'});
+    // dispatch({type: 'GET_PRODUCT'});
+    setDisplayArray(productList);
   }, []);
 
   const handleSearch = function (event) {
-    // start with an empty array
-    setDisplayArray([]);
-
-    console.log(searchCategory);
     // change the product list we loop through depending on search category 
+    // use this array to temp store matches
+    let matches = [];
     // use case for williams favorite switch case
     switch (searchCategory) {
       case '':
-        setDisplayArray(productList)
+        matches = productList
         break;
       case 'all':
-        setDisplayArray(productList)
+        matches = productList
         break;
       case 'utensils':
         console.log('looking for utensils');
         // loop through product list
-        productList.map(product => {
-          console.log('in the map the product is', product);
-          // only return the products with utensils as genre
-          if(product.category === 'utensils') {
-            console.log('should be a match here');
-            // set that product into the displayList
-            setDisplayArray([...displayArray, product])
-          }; // end if match
-        }); // end the map
-        console.log('display array is', displayArray);
+         matches = productList.filter(product => product.category === 'utensils' ); // end the loop
+        console.log(matches);
         break;
       default:
         console.log('nothing in the switch worked');
     }; // end switch
 
+    setDisplayArray(matches)
   }; // end handleSearch
 
   
+  console.log('display array is', displayArray);
 
   return (
     <div className="container">
@@ -120,8 +113,8 @@ function MainPage() {
         </div>
 
       <Grid container className={classes.grid}>
-          {productList.length === 0 ? <div> Products are loading</div> : 
-            productList.map(product => {
+          {displayArray.length === 0 ? <div> Products are loading</div> : 
+            displayArray.map(product => {
               return (
                   <SingleProduct key={product.id} product={product} />
               )

@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 // material ui
 import Button from '@material-ui/core/Button';
+import swal from 'sweetalert';
 
 
 const DescriptionPage = function () {
@@ -12,10 +13,27 @@ const DescriptionPage = function () {
   const user = useSelector(store => store.user);
   
   const deleteProduct = function () { 
-    dispatch({
-      type: 'PRODUCT DELETED',
-      payload: product.id
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this product.",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        dispatch({
+          type: 'PRODUCT DELETED',
+          payload: product.id
+        });
+        swal("Product has been deleted", {
+          icon: "success",
+        });
+      } else {
+        swal("Product has NOT been deleted");
+      }
     });
+    
   }; // end deleteProduct
 
   const likeProduct = function () {
@@ -25,7 +43,8 @@ const DescriptionPage = function () {
         product,
         preference: 1 // this difference is checked in the product router js file
       }
-    })
+    });
+    swal('You Liked this Product')
   }; // ene likeProduct
 
   const hateProduct = function () {
@@ -36,7 +55,9 @@ const DescriptionPage = function () {
         product,
         preference: 2 // this difference is checked in the product router js file
       }
-    })
+    });
+    swal('You Hated this Product')
+
   }; // end hateProduct
 
   return (
