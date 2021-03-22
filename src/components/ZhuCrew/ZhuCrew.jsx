@@ -36,7 +36,7 @@ V  \
  **/
 
  const ZhuCrew = function () {
-   const answer = alert('Are you a member of the Zhu Crew. Y for yes and n for no...');
+   const answer = alert('Are you a member of the Zhu Crew. y for yes and n for no...');
 
     if (answer.toLowerCase() === "y") {
       console.log('Congrats on the upcoming graduation!');

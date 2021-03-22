@@ -10,6 +10,7 @@ const UserLikes = function () {
   // get the preferences from redux
   const likedList = useSelector(store => store.products.userPreference); // contains id of likes
   const allProducts = useSelector(store => store.products.productList); // contains all products
+
   // this will be the list of liked products
   const [likedProductList, setLikedProductList] = useState([]);
 
@@ -19,11 +20,11 @@ const UserLikes = function () {
     likedList.map(like => {
       // check if its a like, 2 represents hated products
      if (like.user_preferences === 2) return;
-
+      // the filter returns the object that matches into an array,
      const [result] = allProducts.filter(product => product.id === like.product_id);
+      // i got the object out of the array and pushed it into another one
      results.push(result);
     }); // end like forEach
-
     setLikedProductList(results);
   }; // end makeProductList
 
