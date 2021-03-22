@@ -63,10 +63,32 @@ function MainPage() {
         matches = productList
         break;
       case 'utensils':
-        console.log('looking for utensils');
         // loop through product list
          matches = productList.filter(product => product.category === 'utensils' ); // end the loop
-        console.log(matches);
+        break;
+      case 'garbage bags':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'garbage bags' ); // end the loop
+        break;
+      case 'bottles':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'bottles' ); // end the loop
+        break;
+      case 'personal':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'personal' ); // end the loop
+        break;
+      case 'soaps':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'soaps' ); // end the loop
+        break;
+      case 'wraps':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'wraps' ); // end the loop
+        break;
+      case 'other':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'other' ); // end the loop
         break;
       default:
         console.log('nothing in the switch worked');
@@ -74,9 +96,6 @@ function MainPage() {
 
     setDisplayArray(matches)
   }; // end handleSearch
-
-  
-  console.log('display array is', displayArray);
 
   return (
     <div className="container">
@@ -103,6 +122,7 @@ function MainPage() {
               <MenuItem value={'garbage bags'}>Garbage Bags</MenuItem>
               <MenuItem value={'bottles'}>Water Bottles</MenuItem>
               <MenuItem value={'personal'}>Personal Items</MenuItem>
+              <MenuItem value={'soaps'}>Laundry/Soap containers</MenuItem>
               <MenuItem value={'wraps'}>Food Wraps/SandwichBags</MenuItem>
               <MenuItem value={'other'}>Other</MenuItem>
             </Select>
