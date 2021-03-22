@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'flex-end',
     marginBottom: '10px'
   },
+  searchButton: {
+    marginLeft: theme.spacing(1)
+  }
 }));
 
 function MainPage() {
@@ -36,6 +39,7 @@ function MainPage() {
 
   // local state
   const [searchCategory, setSearchCategory] = useState('');
+  const [displayArray, setDisplayArray] = useState('');
   // states from redux
   const user = useSelector(store => store.user);
   const productList = useSelector(store => store.products.productList);
@@ -46,14 +50,40 @@ function MainPage() {
   }, []);
 
   const handleSearch = function (event) {
+    // start with an empty array
+    setDisplayArray([]);
+
     console.log(searchCategory);
+    // change the product list we loop through depending on search category 
+    // use case for williams favorite switch case
+    switch (searchCategory) {
+      case '':
+        setDisplayArray(productList)
+        break;
+      case 'all':
+        setDisplayArray(productList)
+        break;
+      case 'utensils':
+        console.log('looking for utensils');
+        // loop through product list
+        productList.map(product => {
+          console.log('in the map the product is', product);
+          // only return the products with utensils as genre
+          if(product.category === 'utensils') {
+            console.log('should be a match here');
+            // set that product into the displayList
+            setDisplayArray([...displayArray, product])
+          }; // end if match
+        }); // end the map
+        console.log('display array is', displayArray);
+        break;
+      default:
+        console.log('nothing in the switch worked');
+    }; // end switch
+
   }; // end handleSearch
 
-  // change the product list we loop through depending on search category 
-  // use case for williams favorite switch case
-  switch (searchCategory) {
-    
-  }
+  
 
   return (
     <div className="container">
@@ -66,10 +96,8 @@ function MainPage() {
           className={classes.formControl}>
             <Select
               value={searchCategory}
-              onChange={(e) => {
-                setSearchCategory(e.target.value);
-                handleSearch();
-              }}
+              onChange={(e) => 
+                setSearchCategory(e.target.value)}
               displayEmpty
               // className={classes.selectEmpty}
               inputProps={{ 'aria-label': 'Without label' }}>
@@ -85,8 +113,10 @@ function MainPage() {
               <MenuItem value={'wraps'}>Food Wraps/SandwichBags</MenuItem>
               <MenuItem value={'other'}>Other</MenuItem>
             </Select>
-            {/* <Button type='submit' variant='contained' color='primary'>Search</Button> */}
           </FormControl>
+          <Button className={classes.searchButton} variant='contained'
+          onClick={handleSearch}>Search</Button>
+
         </div>
 
       <Grid container className={classes.grid}>

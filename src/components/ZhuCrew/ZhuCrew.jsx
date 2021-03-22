@@ -1,5 +1,7 @@
 //  for the Zhu Cohort
 
+import { LocationSearching } from "@material-ui/icons";
+
 /**
   
  
@@ -42,6 +44,8 @@ V  \
     if (answer.toLowerCase() === "n") {
       console.log('then why are you looking at my code?');
     };
+
+    console.log("Thank you for your time. You can do it!");
  }; // end ZhuCrew
 
  export default ZhuCrew;
