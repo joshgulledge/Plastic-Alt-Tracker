@@ -26,6 +26,7 @@ const DescriptionPage = function () {
   // local state
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
+  const [preference, setPreference] = useState(0);
   // set up dispatch to use
   const dispatch = useDispatch();
 
@@ -65,28 +66,26 @@ const DescriptionPage = function () {
   }; // end deleteProduct
 
   const likeProduct = function () {
-    console.log('product liked');
+    setPreference(1);
     handleOpen();
-    // dispatch({
-    //   type: 'PRODUCT_PREFERENCE',
-    //   payload: {
-    //     product,
-    //     preference: 1 // this difference is checked in the product router js file
-    //   }
-    // });
   }; // ene likeProduct
 
-  const hateProduct = function () {
-    console.log('product hated');
-    handleOpen();
-    // dispatch({
-    //   type: 'PRODUCT_PREFERENCE',
-    //   payload: {
-    //     product,
-    //     preference: 2 // this difference is checked in the product router js file
-    //   }
-    // });
+  const sendDispatch = function () {
+    dispatch({
+      type: 'PRODUCT_PREFERENCE',
+      payload: {
+        product,
+        preference: preference,  // what this sends is checked in product router 
+        description
+      },
+    });
 
+    swal('Your preference has been saved');
+  }; // end sendDispatch
+
+  const hateProduct = function () {
+    setPreference(2);
+    handleOpen();
   }; // end hateProduct
 
   return (
@@ -114,7 +113,10 @@ const DescriptionPage = function () {
               value={description}
               multiline
               onChange={(e) => setDescription(e.target.value)} />
-            <Button onClick={handleClose}
+            <Button onClick={() => {
+              handleClose();
+              sendDispatch();
+            }}
             variant='contained'
               color='primary'>
                 Submit Description
