@@ -2,8 +2,32 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+// material ui
+import { makeStyles } from '@material-ui/core/styles';
+import {Paper, Grid, Typography } from '@material-ui/core';
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    margin: theme.spacing(5),
+    width: '75%',
+    // height: theme.spacing(62),
+    padding: theme.spacing(2),
+    textAlign: 'center',
+  },
+  grid: {
+    flexGrow: 1,
+    width: '90%',
+    margin: '1px',
+  },
+}));
+
 
 const UserHates = function () {
+  // material ui
+  const classes = useStyles();
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -41,7 +65,16 @@ const UserHates = function () {
     // when the page loads, compare the two list and make an array with only the hated products
     makeProductList();
   }, []);
+
   const imageClick = function (product) {
+    // find the product with the id
+    let item;
+    allProducts.forEach(product => {
+      if (product.id === productID) {
+        item = product;
+      };
+    });
+    // set and go to description page
     dispatch({
       type: 'SET_SINGLE_PRODUCT',
       payload: product
@@ -55,17 +88,40 @@ const UserHates = function () {
         Products you hated
       </h3>
 
-      {hatedProductList.map(product => {
+      <Grid container >
+        {hatedProductList.map(product => {
         return (
-          <div key={product.id}>
-            <img src={product.image} width='20%' onClick={() => imageClick(product)}/>
-            <span>
-              {product.reason}
-            </span>
-
-          </div>
+            <Grid key={product.id}
+            item xs={4}>
+              <Paper 
+                className={classes.paper} 
+                elevation={3}>
+                <Grid container className={classes.grid}>
+                  <Grid item xs={12}>
+                    <Typography 
+                      variant='h4'>
+                        {product.name}
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <img src={product.image} width='80%' onClick={() => imageClick(product.id)} />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant='subtitle1'>
+                      The Reason You Hated This Product
+                    </Typography>
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Typography variant='caption'>
+                      {product.reason}
+                    </Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
+            </Grid>
         )
-      })}
+        })}
+      </Grid>
 
     </div>
   )
