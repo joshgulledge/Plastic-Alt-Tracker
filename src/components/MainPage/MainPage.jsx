@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: 'flex-end',
     marginBottom: '10px'
   },
+  searchButton: {
+    marginLeft: theme.spacing(1)
+  }
 }));
 
 function MainPage() {
@@ -36,17 +39,62 @@ function MainPage() {
 
   // local state
   const [searchCategory, setSearchCategory] = useState('');
+  const [displayArray, setDisplayArray] = useState([]);
   // states from redux
-  const user = useSelector((store) => store.user);
+  const user = useSelector(store => store.user);
   const productList = useSelector(store => store.products.productList);
   
   // on page load do this
   useEffect(() => {
-    dispatch({type: 'GET_PRODUCT'});
+    // dispatch({type: 'GET_PRODUCT'});
+    setDisplayArray(productList);
   }, []);
 
   const handleSearch = function (event) {
-    setSearchCategory(event.target.value);
+    // change the product list we loop through depending on search category 
+    // use this array to temp store matches
+    let matches = [];
+    // use case for williams favorite switch case
+    switch (searchCategory) {
+      case '':
+        matches = productList
+        break;
+      case 'all':
+        matches = productList
+        break;
+      case 'utensils':
+        // loop through product list
+         matches = productList.filter(product => product.category === 'utensils' ); // end the loop
+        break;
+      case 'garbage bags':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'garbage bags' ); // end the loop
+        break;
+      case 'bottles':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'bottles' ); // end the loop
+        break;
+      case 'personal':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'personal' ); // end the loop
+        break;
+      case 'soaps':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'soaps' ); // end the loop
+        break;
+      case 'wraps':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'wraps' ); // end the loop
+        break;
+      case 'other':
+        // loop through product list
+        matches = productList.filter(product => product.category === 'other' ); // end the loop
+        break;
+      default:
+        console.log('nothing in the switch worked');
+    }; // end switch
+
+    setDisplayArray(matches)
   }; // end handleSearch
 
   return (
@@ -60,7 +108,8 @@ function MainPage() {
           className={classes.formControl}>
             <Select
               value={searchCategory}
-              onChange={handleSearch}
+              onChange={(e) => 
+                setSearchCategory(e.target.value)}
               displayEmpty
               // className={classes.selectEmpty}
               inputProps={{ 'aria-label': 'Without label' }}>
@@ -73,15 +122,19 @@ function MainPage() {
               <MenuItem value={'garbage bags'}>Garbage Bags</MenuItem>
               <MenuItem value={'bottles'}>Water Bottles</MenuItem>
               <MenuItem value={'personal'}>Personal Items</MenuItem>
+              <MenuItem value={'soaps'}>Laundry/Soap containers</MenuItem>
               <MenuItem value={'wraps'}>Food Wraps/SandwichBags</MenuItem>
               <MenuItem value={'other'}>Other</MenuItem>
             </Select>
           </FormControl>
+          <Button className={classes.searchButton} variant='contained'
+          onClick={handleSearch}>Search</Button>
+
         </div>
 
       <Grid container className={classes.grid}>
-          {productList.length === 0 ? <div> Products are loading</div> : 
-            productList.map(product => {
+          {displayArray.length === 0 ? <div> Products are loading</div> : 
+            displayArray.map(product => {
               return (
                   <SingleProduct key={product.id} product={product} />
               )

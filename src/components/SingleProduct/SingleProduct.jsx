@@ -58,7 +58,7 @@ const SingleProduct = function ({product}) {
           preferenceList.map((preference, index) => {
             // compare the product id in the lists
             if (product.id === preference.product_id) {
-              // if its a like show a like thing
+              // if its a like show a like icon
               if (preference.user_preferences === 1) {
                 return( 
                   <div key={index}>
@@ -68,7 +68,6 @@ const SingleProduct = function ({product}) {
               }; // end if liked
 
               if (preference.user_preferences === 2) {
-
                 return( 
                   <div key={index}>
                     <ThumbDownAltOutlinedIcon color="secondary"/>
