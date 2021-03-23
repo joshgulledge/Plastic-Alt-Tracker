@@ -6,7 +6,20 @@ function* productSaga () {
   yield takeEvery('ADD_PRODUCT', addProduct);
   yield takeEvery('PRODUCT_PREFERENCE', productPreference);
   yield takeEvery('PRODUCT DELETED', productDelete);
+  yield takeEvery('SET_SINGLE_PRODUCT', setSingleProduct)
 }; // end productSaga
+
+const setSingleProduct = function* (action) {
+  try {
+    yield put({
+      type: 'SINGLE_PRODUCT',
+      payload: action.payload
+    });
+  }
+  catch (err) {
+    console.log('something went wrong in the set single product 💥', err)
+  }
+}; // end setSingleProduct
 
 const productDelete = function* (action) {
   try {

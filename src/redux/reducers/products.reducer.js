@@ -12,7 +12,7 @@ const productList = function (state = [], action) {
 
 const singleProduct = function (state = {}, action) {
   switch (action.type) {
-    case 'SET_SINGLE_PRODUCT':
+    case 'SINGLE_PRODUCT':
       return action.payload;
     default:
       return state;
