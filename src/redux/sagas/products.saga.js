@@ -11,10 +11,21 @@ function* productSaga () {
 
 const setSingleProduct = function* (action) {
   try {
+    // send info straight to reducer
     yield put({
       type: 'SINGLE_PRODUCT',
       payload: action.payload
     });
+    // also send to rainforest api to get product info
+    const asin = action.payload.asin_number
+    const response = yield axios.post('/api/products/rainforest', {value: asin});
+
+    // send that also to a redux store for use
+    yield put({
+      type: 'SINGLE_PRODUCT_EXTRA',
+      payload: response.data.product
+    });
+
   }
   catch (err) {
     console.log('something went wrong in the set single product 💥', err)

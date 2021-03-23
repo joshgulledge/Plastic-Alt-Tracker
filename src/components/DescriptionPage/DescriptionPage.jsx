@@ -32,6 +32,7 @@ const DescriptionPage = function () {
 
   // get redux stored information
   const product = useSelector(store => store.products.singleProduct);
+  const extraInfo = useSelector(store => store.products.singleProductExtra);
   const user = useSelector(store => store.user);
   
   // open and close material ui modal
@@ -87,6 +88,8 @@ const DescriptionPage = function () {
     setPreference(2);
     handleOpen();
   }; // end hateProduct
+
+  console.log(extraInfo);
 
   return (
     <div>
