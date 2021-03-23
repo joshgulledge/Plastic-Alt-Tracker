@@ -66,7 +66,7 @@ const UserHates = function () {
     makeProductList();
   }, []);
 
-  const imageClick = function (product) {
+  const imageClick = function (productID) {
     // find the product with the id
     let item;
     allProducts.forEach(product => {
@@ -77,7 +77,7 @@ const UserHates = function () {
     // set and go to description page
     dispatch({
       type: 'SET_SINGLE_PRODUCT',
-      payload: product
+      payload: item
     }); // end dispatch
     history.push('/description')
   }; // end imageClick
