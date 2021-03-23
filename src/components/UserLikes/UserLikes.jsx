@@ -2,6 +2,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
+// material ui
+
+
 
 const UserLikes = function () {
   const dispatch = useDispatch();
@@ -54,7 +57,7 @@ const UserLikes = function () {
   return (
     <div>
       <h3>
-        This page will display the liked products 😎
+        Your liked products 
       </h3>
 
       {likedProductList.map(product => {

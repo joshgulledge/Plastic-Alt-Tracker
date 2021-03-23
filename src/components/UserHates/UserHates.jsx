@@ -52,7 +52,7 @@ const UserHates = function () {
   return(
     <div>
       <h3>
-        This page will display the hated products 😎
+        Products you hated
       </h3>
 
       {hatedProductList.map(product => {
