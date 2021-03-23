@@ -46,13 +46,13 @@ const SingleProduct = function ({product}) {
   }; // end imageClick
 
   return (
-    <Grid item xs={4} >
+    <Grid item xs={12} md={4} >
       <Paper className={classes.paper} elevation={3}>
-        <Grid container className={classes.grid} spacing={2}>
-          <Grid item xs={6}>
+        {/* <Grid container className={classes.grid} spacing={2}> */}
+          {/* <Grid item xs={6}> */}
           <Typography variant="h5" gutterBottom>{product.brand}</Typography>
-          </Grid>
-        </Grid>
+          {/* </Grid> */}
+        {/* </Grid> */}
         {/* if a like or hate show indication */}
         { preferenceList.length === 0 ? <h2>Products are loading </h2> :
           preferenceList.map((preference, index) => {
