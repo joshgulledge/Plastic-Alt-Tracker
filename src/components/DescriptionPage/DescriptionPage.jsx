@@ -5,7 +5,7 @@ import swal from 'sweetalert';
 
 // material ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Modal, TextField } from '@material-ui/core';
+import { Button, Modal, TextField, Typography } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -89,45 +89,74 @@ const DescriptionPage = function () {
     handleOpen();
   }; // end hateProduct
 
-  console.log(extraInfo);
+  console.log(extraInfo.images);
 
   return (
     <div>
-      <h2>{product.brand}</h2>
-      <p>{product.description}</p>
-      <img src={product.image_url} alt={product.description} width='12%' />
-      <p><a href={product.website_link}>See Product on Amazon</a></p>
+      {Object.keys(extraInfo).length === 0 ? 
+      <h3>Information is loading...</h3> :
       <div>
-        <Button variant="contained" color="primary" onClick={likeProduct}>Like this Product</Button>
-        <Button variant="contained" color="primary" onClick={hateProduct}>Hate this Product</Button>
-        {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
+
+        {/* bullet points */}
+        {extraInfo.feature_bullets.map(point => {
+          return (
+              <Typography variant='body1'>
+                {point}
+              </Typography>
+          )
+        })}
+
+        {/* images */}
+        {extraInfo.images.map(pic => {
+          return <img src={pic.link} width='25%' />
+        })}
+
       </div>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="simple-modal-title"
-        aria-describedby="simple-modal-description">
-          <div className={classes.modal}>
-            <h4 id="simple-modal-title">
-              Please indicate why you feel this way
-            </h4>
-            <TextField 
-              variant = 'outlined'
-              value={description}
-              multiline
-              onChange={(e) => setDescription(e.target.value)} />
-            <Button onClick={() => {
-              handleClose();
-              sendDispatch();
-            }}
-            variant='contained'
-              color='primary'>
-                Submit Description
-            </Button>
-          </div>
-      </Modal>
-      
+      }
+
     </div>
+
+
+
+
+
+
+    // <div>
+    //   <h2>{product.brand}</h2>
+    //   <p>{product.description}</p>
+    //   <img src={product.image_url} alt={product.description} width='12%' />
+    //   <p><a href={product.website_link}>See Product on Amazon</a></p>
+    //   <div>
+    //     <Button variant="contained" color="primary" onClick={likeProduct}>Like this Product</Button>
+    //     <Button variant="contained" color="primary" onClick={hateProduct}>Hate this Product</Button>
+    //     {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
+    //   </div>
+    //   <Modal
+    //     open={open}
+    //     onClose={handleClose}
+    //     aria-labelledby="simple-modal-title"
+    //     aria-describedby="simple-modal-description">
+    //       <div className={classes.modal}>
+    //         <h4 id="simple-modal-title">
+    //           Please indicate why you feel this way
+    //         </h4>
+    //         <TextField 
+    //           variant = 'outlined'
+    //           value={description}
+    //           multiline
+    //           onChange={(e) => setDescription(e.target.value)} />
+    //         <Button onClick={() => {
+    //           handleClose();
+    //           sendDispatch();
+    //         }}
+    //         variant='contained'
+    //           color='primary'>
+    //             Submit Description
+    //         </Button>
+    //       </div>
+    //   </Modal>
+      
+    // </div>
   )
 }; // end DescriptionPage
 
