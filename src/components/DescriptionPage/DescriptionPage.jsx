@@ -5,7 +5,9 @@ import swal from 'sweetalert';
 
 // material ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Modal, TextField, Typography } from '@material-ui/core';
+import { Button, Modal, Grid,
+  TextField, Typography, Paper,
+   CircularProgress } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -15,6 +17,15 @@ const useStyles = makeStyles((theme) => ({
     border: 'none',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  paper: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    margin: theme.spacing(3),
+    width: '50%',
+    // height: theme.spacing(62),
+    padding: theme.spacing(1),
+    textAlign: 'center',
   },
 }));
 
@@ -92,29 +103,78 @@ const DescriptionPage = function () {
   console.log(extraInfo.images);
 
   return (
-    <div>
-      {Object.keys(extraInfo).length === 0 ? 
-      <h3>Information is loading...</h3> :
-      <div>
+    <Grid container>
+        {/* brand name */}
+      <Grid item xs={12}>
+        <Typography variant='h3'>
+          {Product.name}
+        </Typography>
+      </Grid>
 
+        {/* short description */}
+      <Grid item xs={12}>
+        <Typography variant='body1'>
+          Here will be the short description
+        </Typography>
+      </Grid>
+
+      {/* delete button */}
+      <Grid item xs={3}>
+        {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
+      </Grid>
+
+        {/* image on paper with buttons */}
+      <Grid item xs={12}>
+        <Paper className={classes.paper} elevation={3}>
+          {Object.keys(extraInfo).length === 0 ? 
+            <div>
+               <CircularProgress />
+            </div> :
+            <Grid container>
+              {/* displayed image */}
+              <Grid item xs={12}>
+                <img src={extraInfo.images[0].link} width='80%'/>
+              </Grid>
+              {/* buttons */}
+              <Grid item xs={4}>
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  onClick={likeProduct}>
+                    Like this Product
+                </Button>
+              </Grid>
+              <Grid item xs={4}>
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  onClick={hateProduct}>
+                    Hate this Product
+                </Button>
+              </Grid>
+            </Grid>
+          }
+        </Paper>
+      </Grid>
+
+      {Object.keys(extraInfo).length === 0 ? 
+      <div>
+        <CircularProgress />
+      </div> :
+      <div>
         {/* bullet points */}
         {extraInfo.feature_bullets.map(point => {
           return (
-              <Typography variant='body1'>
-                {point}
-              </Typography>
+            <Typography variant='body1'>
+              {point}
+            </Typography>
           )
-        })}
-
-        {/* images */}
-        {extraInfo.images.map(pic => {
-          return <img src={pic.link} width='25%' />
         })}
 
       </div>
       }
 
-    </div>
+    </Grid>
 
 
 

@@ -11,11 +11,15 @@ function* productSaga () {
 
 const setSingleProduct = function* (action) {
   try {
+    // make sure the extra reducer is clear
+    yield put({type: 'CLEAR_PRODUCT_EXTRA'});
+
     // send info straight to reducer
     yield put({
       type: 'SINGLE_PRODUCT',
       payload: action.payload
     });
+
     // also send to rainforest api to get product info
     const asin = action.payload.asin_number
     const response = yield axios.post('/api/products/rainforest', {value: asin});

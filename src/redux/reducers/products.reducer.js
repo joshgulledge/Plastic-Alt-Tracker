@@ -23,6 +23,8 @@ const singleProductExtra = function (state = {}, action) {
   switch (action.type) {
     case 'SINGLE_PRODUCT_EXTRA':
       return action.payload;
+    case 'CLEAR_PRODUCT_EXTRA':
+      return {};
     default:
       return state;
   };
