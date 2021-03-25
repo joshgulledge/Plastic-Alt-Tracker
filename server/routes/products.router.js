@@ -1,6 +1,7 @@
 const express = require('express');
 const pool = require('../modules/pool');
 const router = express.Router();
+const axios = require('axios');
 const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 
 // ---------------------------------------
@@ -152,5 +153,29 @@ router.post('/pref', rejectUnauthenticated, (req, res) => {
   })
 }); // end preference route
 
+// -------------------------------------------------
+// -------- handle rainforest api call here --------  
+
+router.post('/rainforest', rejectUnauthenticated, (req, res) => {
+  // get the asin of product we want
+  const lookUpKey = req.body.value;
+  // set the params to send to rainforest api
+  const params = {
+    api_key: process.env.rainforest,
+    type: "product",
+    amazon_domain: "amazon.com",
+    asin: lookUpKey
+  };
+  // send the request to rainforest api
+  axios.get('https://api.rainforestapi.com/request', { params })
+  .then(rainRes => {
+    // send back the info
+    res.send(JSON.stringify(rainRes.data));
+  }).catch(err => {
+    console.log('something went wrong in the api call 🤷‍♂️ ', err);
+    res.sendStatus(500);
+  }); // end get from api request
+
+}); // end rainforest api call
 
 module.exports = router;

@@ -12,8 +12,19 @@ const productList = function (state = [], action) {
 
 const singleProduct = function (state = {}, action) {
   switch (action.type) {
-    case 'SET_SINGLE_PRODUCT':
+    case 'SINGLE_PRODUCT':
       return action.payload;
+    default:
+      return state;
+  };
+}; // end singleProduct
+
+const singleProductExtra = function (state = {}, action) {
+  switch (action.type) {
+    case 'SINGLE_PRODUCT_EXTRA':
+      return action.payload;
+    case 'CLEAR_PRODUCT_EXTRA':
+      return {};
     default:
       return state;
   };
@@ -31,5 +42,6 @@ const userPreference = function (state = [], action) {
 export default combineReducers({
   productList,
   singleProduct,
-  userPreference
+  userPreference,
+  singleProductExtra
 });

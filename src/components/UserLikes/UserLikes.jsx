@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     width: '90%',
     margin: '1px',
   },
+  des: {
+    backgroundColor: theme.palette.grey[200]
+  }
 }));
 
 const UserLikes = function () {
@@ -92,31 +95,21 @@ const UserLikes = function () {
         {likedProductList.map(product => {
         return (
             <Grid key={product.id}
-            item xs={4}>
+            item xs={12} md={4}>
               <Paper 
                 className={classes.paper} 
                 elevation={3}>
-                <Grid container className={classes.grid}>
-                  <Grid item xs={12}>
                     <Typography 
                       variant='h4'>
                         {product.name}
                     </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
                     <img src={product.image} width='80%' onClick={() => imageClick(product.id)} />
-                  </Grid>
-                  <Grid item xs={12}>
                     <Typography variant='subtitle1'>
                       The Reason You Liked This Product
                     </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
                     <Typography variant='caption'>
                       {product.reason}
                     </Typography>
-                  </Grid>
-                </Grid>
               </Paper>
             </Grid>
         )

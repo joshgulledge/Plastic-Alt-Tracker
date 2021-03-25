@@ -6,7 +6,35 @@ function* productSaga () {
   yield takeEvery('ADD_PRODUCT', addProduct);
   yield takeEvery('PRODUCT_PREFERENCE', productPreference);
   yield takeEvery('PRODUCT DELETED', productDelete);
+  yield takeEvery('SET_SINGLE_PRODUCT', setSingleProduct)
 }; // end productSaga
+
+const setSingleProduct = function* (action) {
+  try {
+    // make sure the extra reducer is clear
+    yield put({type: 'CLEAR_PRODUCT_EXTRA'});
+
+    // send info straight to reducer
+    yield put({
+      type: 'SINGLE_PRODUCT',
+      payload: action.payload
+    });
+
+    // also send to rainforest api to get product info
+    const asin = action.payload.asin_number
+    const response = yield axios.post('/api/products/rainforest', {value: asin});
+
+    // send that also to a redux store for use
+    yield put({
+      type: 'SINGLE_PRODUCT_EXTRA',
+      payload: response.data.product
+    });
+
+  }
+  catch (err) {
+    console.log('something went wrong in the set single product 💥', err)
+  }
+}; // end setSingleProduct
 
 const productDelete = function* (action) {
   try {
