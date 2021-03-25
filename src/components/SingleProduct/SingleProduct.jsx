@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 // material ui components
 import { makeStyles } from '@material-ui/core/styles';
-import {Paper, Grid, Typography } from '@material-ui/core';
+import {Paper, Grid, Typography, CircularProgress } from '@material-ui/core';
 import ThumbUpAltOutlinedIcon from '@material-ui/icons/ThumbUpAltOutlined';
 import ThumbDownAltOutlinedIcon from '@material-ui/icons/ThumbDownAltOutlined';
 
@@ -46,38 +46,50 @@ const SingleProduct = function ({product}) {
   }; // end imageClick
 
   return (
-    <Grid item xs={12} md={4} >
-      <Paper className={classes.paper} elevation={3}>
-        {/* <Grid container className={classes.grid} spacing={2}> */}
-          {/* <Grid item xs={6}> */}
-          <Typography variant="h5" gutterBottom>{product.brand}</Typography>
-          {/* </Grid> */}
-        {/* </Grid> */}
-        {/* if a like or hate show indication */}
-        { preferenceList.length === 0 ? <h2>Products are loading </h2> :
-          preferenceList.map((preference, index) => {
-            // compare the product id in the lists
-            if (product.id === preference.product_id) {
-              // if its a like show a like icon
-              if (preference.user_preferences === 1) {
-                return( 
-                  <div key={index}>
-                    <ThumbUpAltOutlinedIcon color="primary"/>
-                  </div>
-                )
-              }; // end if liked
+    <Grid container 
+      justify='center' 
+      alignItems='center' 
+      item xs={12} md={4}>
 
-              if (preference.user_preferences === 2) {
+      <Paper className={classes.paper} elevation={3}>
+        <Grid container 
+          justify='center'
+          alignItems='space-between'
+          className={classes.grid} 
+          spacing={2}>
+          <Grid item>
+          <Typography variant="h5" gutterBottom>{product.brand}</Typography>
+          </Grid>
+          {/* if a like or hate show indication */}
+          { preferenceList.length === 0 ? <CircularProgress /> :
+            preferenceList.map((preference, index) => {
+             // compare the product id in the lists
+             if (product.id === preference.product_id) {
+               // if its a like show a like icon
+                if (preference.user_preferences === 1) {
+                 return( 
+                   <div key={index}>
+                    <ThumbUpAltOutlinedIcon color="primary"/>
+                   </div>
+                 )
+               }; // end if liked
+
+               if (preference.user_preferences === 2) {
                 return( 
-                  <div key={index}>
-                    <ThumbDownAltOutlinedIcon color="secondary"/>
-                  </div>
-                )
-              }; // end if hated
-            }; // end if product is in preference list
-          }) // end of map
-        }
-        <img width='80%' src={product.image_url} alt={product.brand} onClick={imageClick}/>
+                    <div key={index}>
+                     <ThumbDownAltOutlinedIcon color="secondary"/>
+                    </div>
+                 )
+                }; // end if hated
+              }; // end if product is in preference list
+            }) // end of map
+          }
+        </Grid>
+
+        <Grid item>
+          <img width='90%' src={product.image_url} alt={product.brand} onClick={imageClick}/>
+        </Grid>
+        
         <Typography variant="body1" gutterBottom>{product.description}</Typography>
       </Paper>
     </Grid>

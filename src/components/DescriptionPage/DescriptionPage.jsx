@@ -20,11 +20,14 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
+  grid: {
+    margin: theme.spacing(2)
+  },
   paper: {
     display: 'flex',
     flexWrap: 'wrap',
     margin: theme.spacing(1),
-    width: '100%',
+    width: '80%',
     padding: theme.spacing(1),
     textAlign: 'center',
   },
@@ -118,7 +121,6 @@ const DescriptionPage = function () {
   }; // end goBack
 
   const goForward = function () {
-    console.log('go forward button ');
     // make sure the image count is less than the 
     // number of images returned
     if (imageCount < extraInfo.images.length - 1) {
@@ -131,23 +133,25 @@ const DescriptionPage = function () {
     };
   }; // end goForward
 
-  console.log(extraInfo.images.length, imageCount);
-
   return (
-    <Grid container>
+    <Grid container className={classes.grid}>
         {/* brand name */}
-      <Grid item xs={12}>
-        <Typography variant='h3'>
-          {product.brand}
-        </Typography>
-      </Grid>
 
-        {/* short description */}
-      <Grid item xs={12}>
-        <Typography variant='body1'>
-          {product.description}
-        </Typography>
+      <Grid container justify='center' alignItems='center'>
+        <Grid item xs={12}>
+          <Typography variant='h3' align='center'>
+            {product.brand}
+          </Typography>
+        </Grid>
+
+          {/* short description */}
+        <Grid item xs={12}>
+          <Typography variant='body1' align='center'>
+            {product.description}
+          </Typography>
+        </Grid>
       </Grid>
+      
 
       {/* delete button */}
       <Grid item xs={12}>
@@ -187,6 +191,7 @@ const DescriptionPage = function () {
                           Like this Product
                       </Button>
                     </Grid>
+                    <Grid item xs={4} />
                     <Grid item xs={4}>
                       <Button 
                         variant="contained" 
