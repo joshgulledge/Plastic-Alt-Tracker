@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme) => ({
     width: '90%',
     margin: '1px',
   },
+  des: {
+    backgroundColor: theme.palette.grey[200]
+  }
 }));
 
 
@@ -92,7 +95,7 @@ const UserHates = function () {
         {hatedProductList.map(product => {
         return (
             <Grid key={product.id}
-            item xs={4}>
+            item xs={4} md={4}>
               <Paper 
                 className={classes.paper} 
                 elevation={3}>
