@@ -7,7 +7,7 @@ import SingleProduct from '../SingleProduct/SingleProduct';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import { AppBar,Grid, Toolbar,
-  Typography, Button, TextField,
+  Typography, Button, TextField, CircularProgress,
   MenuItem, FormControl, Select } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -133,7 +133,7 @@ function MainPage() {
         </div>
 
       <Grid container className={classes.grid}>
-          {displayArray.length === 0 ? <div> Products are loading</div> : 
+          {displayArray.length === 0 ? <CircularProgress /> : 
             displayArray.map(product => {
               return (
                   <SingleProduct key={product.id} product={product} />

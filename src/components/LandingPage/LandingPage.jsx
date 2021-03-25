@@ -19,13 +19,13 @@ function LandingPage() {
           justify='center'
           alignItems='center'>
             <Grid item xs={12}>
-              <Typography variant='h3'>
+              <Typography variant='h3' align='center'>
                 What we Do
               </Typography>
             </Grid>
            
             <Grid item xs={12}>
-              <Typography variant='body1'>
+              <Typography variant='body1' align='center'>
                 We aim to try and help people cut back on their personal plastic use. We think this can be done by keeping up with different products that we have used, ones we haven't used yet, and if we liked those products and why. This application will help users do that. We have a wide range of products that you can browse through and like or dislike the products as well as give a reason why that product either worked or didn't work for you.  
               </Typography>
             </Grid>
