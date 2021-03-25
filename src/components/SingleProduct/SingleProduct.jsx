@@ -62,7 +62,7 @@ const SingleProduct = function ({product}) {
 
           <Grid item xs={5} />
           {/* if a like or hate show indication */}
-          { preferenceList.length === 0 ? <CircularProgress /> :
+          { preferenceList.length === 0 ? <Grid item /> :
             preferenceList.map((preference, index) => {
              // compare the product id in the lists
              if (product.id === preference.product_id) {
