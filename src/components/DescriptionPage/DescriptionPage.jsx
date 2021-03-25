@@ -5,9 +5,11 @@ import swal from 'sweetalert';
 
 // material ui
 import { makeStyles } from '@material-ui/core/styles';
-import { Button, Modal, Grid,
+import { Button, Modal, Grid, IconButton,
   TextField, Typography, Paper,
    CircularProgress } from '@material-ui/core';
+   import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+   import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -21,9 +23,8 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
     flexWrap: 'wrap',
-    margin: theme.spacing(3),
-    width: '50%',
-    // height: theme.spacing(62),
+    margin: theme.spacing(1),
+    width: '100%',
     padding: theme.spacing(1),
     textAlign: 'center',
   },
@@ -38,6 +39,8 @@ const DescriptionPage = function () {
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
   const [preference, setPreference] = useState(0);
+  const [imageCount, setImageCount] = useState(0);
+
   // set up dispatch to use
   const dispatch = useDispatch();
 
@@ -100,81 +103,145 @@ const DescriptionPage = function () {
     handleOpen();
   }; // end hateProduct
 
-  console.log(extraInfo.images);
+  // to change image on paper
+  const goBack = function () {
+    // make sure the image count is less than the 
+    // number of images returned
+    if (imageCount > 0) {
+      let counter = imageCount;
+      counter--;
+      setImageCount(counter);
+    };
+    if (imageCount <= 0) {
+      setImageCount(extraInfo.images.length -1);
+    };
+  }; // end goBack
+
+  const goForward = function () {
+    console.log('go forward button ');
+    // make sure the image count is less than the 
+    // number of images returned
+    if (imageCount < extraInfo.images.length - 1) {
+      let counter = imageCount;
+      counter++;
+      setImageCount(counter);
+    };
+    if (imageCount >= extraInfo.images.length -1) {
+      setImageCount(0);
+    };
+  }; // end goForward
+
+  console.log(extraInfo.images.length, imageCount);
 
   return (
     <Grid container>
         {/* brand name */}
       <Grid item xs={12}>
         <Typography variant='h3'>
-          {Product.name}
+          {product.brand}
         </Typography>
       </Grid>
 
         {/* short description */}
       <Grid item xs={12}>
         <Typography variant='body1'>
-          Here will be the short description
+          {product.description}
         </Typography>
       </Grid>
 
       {/* delete button */}
-      <Grid item xs={3}>
+      <Grid item xs={12}>
         {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
       </Grid>
 
         {/* image on paper with buttons */}
-      <Grid item xs={12}>
-        <Paper className={classes.paper} elevation={3}>
-          {Object.keys(extraInfo).length === 0 ? 
-            <div>
-               <CircularProgress />
-            </div> :
-            <Grid container>
-              {/* displayed image */}
-              <Grid item xs={12}>
-                <img src={extraInfo.images[0].link} width='80%'/>
-              </Grid>
-              {/* buttons */}
-              <Grid item xs={4}>
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  onClick={likeProduct}>
-                    Like this Product
-                </Button>
-              </Grid>
-              <Grid item xs={4}>
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  onClick={hateProduct}>
-                    Hate this Product
-                </Button>
-              </Grid>
-            </Grid>
-          }
-        </Paper>
+        <Grid container 
+          justify='space-between'
+          alignItems='center'>
+
+          <Grid item xs={3}>
+            <IconButton aria-label="delete">
+              <ArrowBackIosIcon onClick={goBack}/>
+            </IconButton>
+          </Grid>
+
+          <Grid item xs={6}>
+            <Paper className={classes.paper} elevation={3}>
+              {Object.keys(extraInfo).length === 0 ? 
+                <div>
+                  <CircularProgress />
+                </div> :
+                <Grid container>
+                  {/* displayed image */}
+                  <Grid item xs={12}>
+                    <img src={extraInfo.images[imageCount].link} width='80%'/>
+                  </Grid>
+                  {/* buttons */}
+                  {/* <Grid containter
+                    justify='space-between'> */}
+                    <Grid item xs={4}>
+                      <Button 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={likeProduct}>
+                          Like this Product
+                      </Button>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Button 
+                        variant="contained" 
+                        color="primary" 
+                        onClick={hateProduct}>
+                          Hate this Product
+                      </Button>
+                    </Grid>
+                  {/* </Grid> */}
+
+                </Grid>
+              }
+            </Paper>
+          </Grid>
+
+          <Grid item xs={3}>
+            <IconButton aria-label="delete">
+              <ArrowForwardIosIcon onClick={goForward}/>
+            </IconButton>
+          </Grid>
       </Grid>
 
-      {Object.keys(extraInfo).length === 0 ? 
-      <div>
-        <CircularProgress />
-      </div> :
-      <div>
-        {/* bullet points */}
-        {extraInfo.feature_bullets.map(point => {
-          return (
+        {/* bullets and price */}
+      <Grid container justify='space-between'>
+        <Grid item xs={4}>
+          {Object.keys(extraInfo).length === 0 ? 
+            <div>
+              <CircularProgress />
+            </div> :
+            <div>
+              {/* bullet points */}
+              {extraInfo.feature_bullets.map(point => {
+                return (
+                  <Typography variant='body1'>
+                    {point}
+                </Typography>
+                )
+              })}
+            </div>
+          }
+        </Grid>
+
+        <Grid item xs={4}>
+          {Object.keys(extraInfo).length === 0 ?
+          <div>
+            <CircularProgress />
+          </div> :
+          <div>
             <Typography variant='body1'>
-              {point}
+              Current Price is {extraInfo.buybox_winner.price.raw}
             </Typography>
-          )
-        })}
-
-      </div>
-      }
-
-    </Grid>
+          </div>}
+        </Grid>
+        </Grid>
+      </Grid>
 
 
 
