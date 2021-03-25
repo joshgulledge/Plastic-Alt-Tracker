@@ -235,6 +235,7 @@ const DescriptionPage = function () {
               </div>
             }
           </Grid>
+          <Grid item xs={4} />
 
           <Grid item xs={4}>
             {Object.keys(extraInfo).length === 0 ?
@@ -247,6 +248,15 @@ const DescriptionPage = function () {
               </Typography>
             </div>}
           </Grid>
+        </Grid>
+
+        <Grid item xs={8} />
+        <Grid item xs={4}>
+          <Button variant='contained' color='primary'>
+            <Typography variant='body2'>
+              <a href={product.website_link}>See Product on Amazon</a>
+            </Typography>
+          </Button>
         </Grid>
 
         {/* modal window */}
@@ -276,50 +286,6 @@ const DescriptionPage = function () {
         </Modal>
       
       </Grid>
-
-      // modal window
-
-
-
-
-
-
-    // <div>
-    //   <h2>{product.brand}</h2>
-    //   <p>{product.description}</p>
-    //   <img src={product.image_url} alt={product.description} width='12%' />
-    //   <p><a href={product.website_link}>See Product on Amazon</a></p>
-    //   <div>
-    //     <Button variant="contained" color="primary" onClick={likeProduct}>Like this Product</Button>
-    //     <Button variant="contained" color="primary" onClick={hateProduct}>Hate this Product</Button>
-    //     {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
-    //   </div>
-      // <Modal
-      //   open={open}
-      //   onClose={handleClose}
-      //   aria-labelledby="simple-modal-title"
-      //   aria-describedby="simple-modal-description">
-      //     <div className={classes.modal}>
-      //       <h4 id="simple-modal-title">
-      //         Please indicate why you feel this way
-      //       </h4>
-      //       <TextField 
-      //         variant = 'outlined'
-      //         value={description}
-      //         multiline
-      //         onChange={(e) => setDescription(e.target.value)} />
-      //       <Button onClick={() => {
-      //         handleClose();
-      //         sendDispatch();
-      //       }}
-      //       variant='contained'
-      //         color='primary'>
-      //           Submit Description
-      //       </Button>
-      //     </div>
-      // </Modal>
-      
-    // </div>
   )
 }; // end DescriptionPage
 

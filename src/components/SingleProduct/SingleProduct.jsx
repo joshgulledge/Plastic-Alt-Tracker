@@ -54,7 +54,6 @@ const SingleProduct = function ({product}) {
       <Paper className={classes.paper} elevation={3}>
         <Grid container 
           justify='center'
-          alignItems='space-between'
           className={classes.grid} 
           spacing={2}>
           <Grid item xs={6}>
