@@ -175,6 +175,7 @@ const DescriptionPage = function () {
             <Paper className={classes.paper} elevation={3}>
               {Object.keys(extraInfo).length === 0 ? 
                 <div>
+                  Loading information from RainForest API...
                   <CircularProgress />
                 </div> :
                 <Grid container>
