@@ -54,31 +54,32 @@ const SingleProduct = function ({product}) {
       <Paper className={classes.paper} elevation={3}>
         <Grid container 
           justify='center'
-          alignItems='space-between'
           className={classes.grid} 
           spacing={2}>
-          <Grid item>
+          <Grid item xs={6}>
           <Typography variant="h5" gutterBottom>{product.brand}</Typography>
           </Grid>
+
+          <Grid item xs={5} />
           {/* if a like or hate show indication */}
-          { preferenceList.length === 0 ? <CircularProgress /> :
+          { preferenceList.length === 0 ? <Grid item /> :
             preferenceList.map((preference, index) => {
              // compare the product id in the lists
              if (product.id === preference.product_id) {
                // if its a like show a like icon
                 if (preference.user_preferences === 1) {
                  return( 
-                   <div key={index}>
+                   <Grid item xs={1} key={index}>
                     <ThumbUpAltOutlinedIcon color="primary"/>
-                   </div>
+                   </Grid>
                  )
                }; // end if liked
 
                if (preference.user_preferences === 2) {
                 return( 
-                    <div key={index}>
+                    <Grid item xs={1} key={index}>
                      <ThumbDownAltOutlinedIcon color="secondary"/>
-                    </div>
+                    </Grid>
                  )
                 }; // end if hated
               }; // end if product is in preference list

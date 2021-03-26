@@ -84,6 +84,7 @@ const DescriptionPage = function () {
   }; // end deleteProduct
 
   const likeProduct = function () {
+    console.log('like button');
     setPreference(1);
     handleOpen();
   }; // ene likeProduct
@@ -102,6 +103,7 @@ const DescriptionPage = function () {
   }; // end sendDispatch
 
   const hateProduct = function () {
+    console.log('hate button');
     setPreference(2);
     handleOpen();
   }; // end hateProduct
@@ -134,29 +136,29 @@ const DescriptionPage = function () {
   }; // end goForward
 
   return (
-    <Grid container className={classes.grid}>
+      <Grid container className={classes.grid}>
         {/* brand name */}
 
-      <Grid container justify='center' alignItems='center'>
-        <Grid item xs={12}>
-          <Typography variant='h3' align='center'>
-            {product.brand}
-          </Typography>
-        </Grid>
+        <Grid container justify='center' alignItems='center'>
+          <Grid item xs={12}>
+            <Typography variant='h3' align='center'>
+              {product.brand}
+            </Typography>
+          </Grid>
 
           {/* short description */}
-        <Grid item xs={12}>
-          <Typography variant='body1' align='center'>
-            {product.description}
-          </Typography>
+          <Grid item xs={12}>
+            <Typography variant='body1' align='center'>
+              {product.description}
+            </Typography>
+          </Grid>
         </Grid>
-      </Grid>
       
 
-      {/* delete button */}
-      <Grid item xs={12}>
-        {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
-      </Grid>
+        {/* delete button */}
+        <Grid item xs={12}>
+          {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
+        </Grid>
 
         {/* image on paper with buttons */}
         <Grid container 
@@ -212,83 +214,78 @@ const DescriptionPage = function () {
               <ArrowForwardIosIcon onClick={goForward}/>
             </IconButton>
           </Grid>
-      </Grid>
+        </Grid>
 
         {/* bullets and price */}
-      <Grid container justify='space-between'>
-        <Grid item xs={4}>
-          {Object.keys(extraInfo).length === 0 ? 
+        <Grid container justify='space-between'>
+          <Grid item xs={4}>
+            {Object.keys(extraInfo).length === 0 ? 
+              <div>
+                <CircularProgress />
+              </div> :
+              <div>
+                {/* bullet points */}
+                {extraInfo.feature_bullets.map(point => {
+                  return (
+                    <Typography variant='body1'>
+                      {point}
+                  </Typography>
+                  )
+                })}
+              </div>
+            }
+          </Grid>
+          <Grid item xs={4} />
+
+          <Grid item xs={4}>
+            {Object.keys(extraInfo).length === 0 ?
             <div>
               <CircularProgress />
             </div> :
             <div>
-              {/* bullet points */}
-              {extraInfo.feature_bullets.map(point => {
-                return (
-                  <Typography variant='body1'>
-                    {point}
-                </Typography>
-                )
-              })}
-            </div>
-          }
+              <Typography variant='body1'>
+                Current Price is {extraInfo.buybox_winner.price.raw}
+              </Typography>
+            </div>}
+          </Grid>
         </Grid>
 
+        <Grid item xs={8} />
         <Grid item xs={4}>
-          {Object.keys(extraInfo).length === 0 ?
-          <div>
-            <CircularProgress />
-          </div> :
-          <div>
-            <Typography variant='body1'>
-              Current Price is {extraInfo.buybox_winner.price.raw}
+          <Button variant='contained' color='secondary'>
+            <Typography variant='body2'>
+              <a href={product.website_link}>See Product on Amazon</a>
             </Typography>
-          </div>}
+          </Button>
         </Grid>
-        </Grid>
-      </Grid>
 
-
-
-
-
-
-    // <div>
-    //   <h2>{product.brand}</h2>
-    //   <p>{product.description}</p>
-    //   <img src={product.image_url} alt={product.description} width='12%' />
-    //   <p><a href={product.website_link}>See Product on Amazon</a></p>
-    //   <div>
-    //     <Button variant="contained" color="primary" onClick={likeProduct}>Like this Product</Button>
-    //     <Button variant="contained" color="primary" onClick={hateProduct}>Hate this Product</Button>
-    //     {user.authority === 'ADMIN' && <Button variant="contained" color="secondary" onClick={deleteProduct}>Delete this product</Button> }
-    //   </div>
-    //   <Modal
-    //     open={open}
-    //     onClose={handleClose}
-    //     aria-labelledby="simple-modal-title"
-    //     aria-describedby="simple-modal-description">
-    //       <div className={classes.modal}>
-    //         <h4 id="simple-modal-title">
-    //           Please indicate why you feel this way
-    //         </h4>
-    //         <TextField 
-    //           variant = 'outlined'
-    //           value={description}
-    //           multiline
-    //           onChange={(e) => setDescription(e.target.value)} />
-    //         <Button onClick={() => {
-    //           handleClose();
-    //           sendDispatch();
-    //         }}
-    //         variant='contained'
-    //           color='primary'>
-    //             Submit Description
-    //         </Button>
-    //       </div>
-    //   </Modal>
+        {/* modal window */}
+        <Modal
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description">
+            <div className={classes.modal}>
+              <h4 id="simple-modal-title">
+                Please indicate why you feel this way
+              </h4>
+              <TextField 
+                variant = 'outlined'
+                value={description}
+                multiline
+                onChange={(e) => setDescription(e.target.value)} />
+              <Button onClick={() => {
+                handleClose();
+                sendDispatch();
+              }}
+              variant='contained'
+                color='primary'>
+                  Submit Description
+              </Button>
+            </div>
+        </Modal>
       
-    // </div>
+      </Grid>
   )
 }; // end DescriptionPage
 
