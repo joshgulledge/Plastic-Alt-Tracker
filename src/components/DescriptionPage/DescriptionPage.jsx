@@ -199,7 +199,7 @@ const DescriptionPage = function () {
                         variant="contained" 
                         color="primary" 
                         onClick={hateProduct}>
-                          Hate this Product
+                          Dislike this Product
                       </Button>
                     </Grid>
                   {/* </Grid> */}
