@@ -71,7 +71,7 @@ const DescriptionPage = function () {
     .then((willDelete) => {
       if (willDelete) {
         dispatch({
-          type: 'PRODUCT DELETED',
+          type: 'PRODUCT_DELETED',
           payload: product.id
         });
         swal("Product has been deleted", {
