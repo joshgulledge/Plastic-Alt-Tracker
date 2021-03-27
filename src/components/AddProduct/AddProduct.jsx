@@ -17,11 +17,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(2),
     minWidth: 180,
   },
-  // selectEmpty: {
-  //   // marginTop: theme.spacing(2),
-  // },
 }));
-
 
 const AddProduct = function () {
   // material ui
@@ -64,17 +60,18 @@ const AddProduct = function () {
         asin_number: asin
       }
     })
-
-    // console.log(productBrand,
-    //   productCategory,
-    //   imageUrl,
-    //   websiteUrl,
-    //   description,
-    //   asin
-    //   );
-
       clearValues();
   }; // end buttonClicked
+
+  // This is to quickly add information for my presentation
+const presentAdd = function () {
+  setProductBrand('LIFEWTR');
+  setProductCategory('bottles');
+  setImageUrl('https://images-na.ssl-images-amazon.com/images/I/91h1PTUd6nL._SL1500_.jpg');
+  setWebsiteUrl('https://www.amazon.com/Purified-Balanced-Electrolytes-mLbottles-Packaging/dp/B07D8LQVZQ/ref=sr_1_1_sspa?dchild=1&keywords=plastic+free+bottled+water&qid=1616867003&sr=8-1-spons&psc=1&spLa=ZW5jcnlwdGVkUXVhbGlmaWVyPUEzN0VLSjJRNzdDVVpZJmVuY3J5cHRlZElkPUEwNzY5NDI4QTlMNUZVQVdOSE1LJmVuY3J5cHRlZEFkSWQ9QTA2NDc3NDAxSlBMSlFLMkFaTk1JJndpZGdldE5hbWU9c3BfYXRmJmFjdGlvbj1jbGlja1JlZGlyZWN0JmRvTm90TG9nQ2xpY2s9dHJ1ZQ==');
+  setDescription('LIFEWTR Premium Purified Water, 16.9 Fl Oz (Pack of 12)');
+  setAsin('B07D8LQVZQ');
+}; // end presentAdd
 
   return (
     <div>
@@ -87,15 +84,8 @@ const AddProduct = function () {
             variant='filled'
             value={productBrand} 
             type="text" 
-            onChange={(e)=>setProductBrand(e.target.value)} />
-
-          {/* <TextField
-            className={classes.inputs}
-            label='Product Category' 
-            variant='filled'
-            value={productCategory} 
-            type="text" 
-            onChange={(e)=>setProductCategory(e.target.value)} /> */}
+            // onChange={(e)=>setProductBrand(e.target.value)} />
+            onChange={presentAdd} />
 
           <FormControl variant="filled" className={classes.formControl}>
             <Select
