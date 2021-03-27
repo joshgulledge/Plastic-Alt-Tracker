@@ -48,34 +48,6 @@ function Nav() {
           Choking Plastic
         </Typography>
 
-         {/* This is the search drop down select 
-       {user.id && 
-       ( <div className={classes.searchContainer}>
-          <SearchIcon className={classes.searchIcon}/>
-          <FormControl
-          className={classes.formControl}>
-            <Select
-              value={searchCategory}
-              onChange={handleSearch}
-              displayEmpty
-              // className={classes.selectEmpty}
-              inputProps={{ 'aria-label': 'Without label' }}>
-
-              <MenuItem value="" disabled>
-                Pick a Genre
-              </MenuItem>
-              <MenuItem value={'all'}>All Products</MenuItem>
-              <MenuItem value={'utensils'}>Kitchen Utensils</MenuItem>
-              <MenuItem value={'garbage bags'}>Garbage Bags</MenuItem>
-              <MenuItem value={'bottles'}>Water Bottles</MenuItem>
-              <MenuItem value={'personal'}>Personal Items</MenuItem>
-              <MenuItem value={'wraps'}>Food Wraps/SandwichBags</MenuItem>
-              <MenuItem value={'other'}>Other</MenuItem>
-            </Select>
-          </FormControl>
-        </div>
-        )} */}
-
               {/* Nav Bar Options   */}
         {user.id && (
           <>
@@ -93,7 +65,7 @@ function Nav() {
 
           <Button color='inherit'>
             <Link className="navLink" to="/myHates">
-             My Hated Products
+             My Disliked Products
             </Link>
           </Button>
 

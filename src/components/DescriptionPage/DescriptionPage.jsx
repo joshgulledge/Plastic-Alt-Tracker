@@ -71,7 +71,7 @@ const DescriptionPage = function () {
     .then((willDelete) => {
       if (willDelete) {
         dispatch({
-          type: 'PRODUCT DELETED',
+          type: 'PRODUCT_DELETED',
           payload: product.id
         });
         swal("Product has been deleted", {
@@ -175,6 +175,7 @@ const DescriptionPage = function () {
             <Paper className={classes.paper} elevation={3}>
               {Object.keys(extraInfo).length === 0 ? 
                 <div>
+                  Loading information from RainForest API...
                   <CircularProgress />
                 </div> :
                 <Grid container>
@@ -199,7 +200,7 @@ const DescriptionPage = function () {
                         variant="contained" 
                         color="primary" 
                         onClick={hateProduct}>
-                          Hate this Product
+                          Dislike this Product
                       </Button>
                     </Grid>
                   {/* </Grid> */}

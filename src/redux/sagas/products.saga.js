@@ -5,7 +5,7 @@ function* productSaga () {
   yield takeEvery('GET_PRODUCT', getProduct)
   yield takeEvery('ADD_PRODUCT', addProduct);
   yield takeEvery('PRODUCT_PREFERENCE', productPreference);
-  yield takeEvery('PRODUCT DELETED', productDelete);
+  yield takeEvery('PRODUCT_DELETED', productDelete);
   yield takeEvery('SET_SINGLE_PRODUCT', setSingleProduct)
 }; // end productSaga
 
@@ -38,9 +38,10 @@ const setSingleProduct = function* (action) {
 
 const productDelete = function* (action) {
   try {
-    console.log('...in delete...');
-
    axios.delete(`/api/products/${action.payload}`);
+
+    // get the updated information 
+    yield put({type: 'GET_PRODUCT'});
 
   }
   catch (err) {
