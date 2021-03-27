@@ -7,3 +7,6 @@
 - On the description page the user will have the ability to like or dislike the product and leave comments about the reason why.
 - After a like or dislike the user can see an icon indicating this on the main page. It will also populate a like and disliked page that is available from the nav bar.
 - Using the like and dislike pages, my goal is to make it an easy reference point when making purchases to be able to see what you have used in the past, and make decisions based on those purchases.
+
+### Main Page after Log In or Register
+![GitHub Logo](/public/mainPage.png)
