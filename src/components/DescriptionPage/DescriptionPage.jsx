@@ -256,15 +256,6 @@ const DescriptionPage = function () {
           </Grid>
         </Grid>
 
-        {/* <Grid item xs={8} />
-        <Grid item xs={4}>
-          <Button variant='contained' color='secondary'>
-            <Typography variant='body2'>
-              <a href={product.website_link}>See Product on Amazon</a>
-            </Typography>
-          </Button>
-        </Grid> */}
-
         {/* modal window */}
         <Modal
           open={open}

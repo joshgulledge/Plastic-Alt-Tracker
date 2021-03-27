@@ -88,7 +88,7 @@ const UserHates = function () {
   return(
     <div>
       <h3>
-        Products you hated
+        Products you did not like
       </h3>
 
       <Grid container >
