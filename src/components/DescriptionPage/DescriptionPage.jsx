@@ -247,18 +247,23 @@ const DescriptionPage = function () {
               <Typography variant='body1'>
                 Current Price is {extraInfo.buybox_winner.price.raw}
               </Typography>
+              <Button variant='contained' color='secondary'>
+                <Typography variant='body2'>
+                <a href={product.website_link}>See Product on Amazon</a>
+                </Typography>
+              </Button>
             </div>}
           </Grid>
         </Grid>
 
-        <Grid item xs={8} />
+        {/* <Grid item xs={8} />
         <Grid item xs={4}>
           <Button variant='contained' color='secondary'>
             <Typography variant='body2'>
               <a href={product.website_link}>See Product on Amazon</a>
             </Typography>
           </Button>
-        </Grid>
+        </Grid> */}
 
         {/* modal window */}
         <Modal
