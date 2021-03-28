@@ -135,6 +135,10 @@ const DescriptionPage = function () {
     };
   }; // end goForward
 
+  const forPresenting = function () {
+    setDescription('This is the best product in this category that I have used.');
+  }; // end forPresenting
+
   return (
       <Grid container className={classes.grid}>
         {/* brand name */}
@@ -270,7 +274,9 @@ const DescriptionPage = function () {
                 variant = 'outlined'
                 value={description}
                 multiline
-                onChange={(e) => setDescription(e.target.value)} />
+                // onChange={(e) => setDescription(e.target.value)} />
+                onChange={forPresenting} />
+
               <Button onClick={() => {
                 handleClose();
                 sendDispatch();
