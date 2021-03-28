@@ -9,7 +9,6 @@ import SearchIcon from '@material-ui/icons/Search';
 import { AppBar,Grid, Toolbar,
   Typography, Button, TextField, CircularProgress,
   MenuItem, FormControl, Select } from '@material-ui/core';
-import { ControlCameraOutlined } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme) => ({
   grid: {
@@ -45,11 +44,10 @@ function MainPage() {
   const user = useSelector(store => store.user);
   const productList = useSelector(store => store.products.productList);
   
-  // on page load do this
+  // when productList changes do this. Should only change once.
   useEffect(() => {
-    // dispatch({type: 'GET_PRODUCT'});
     setDisplayArray(productList);
-  }, []);
+  }, [productList]);
 
   const handleSearch = function (event) {
     // change the product list we loop through depending on search category 
