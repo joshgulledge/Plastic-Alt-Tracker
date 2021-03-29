@@ -44,11 +44,10 @@ function MainPage() {
   const user = useSelector(store => store.user);
   const productList = useSelector(store => store.products.productList);
   
-  // on page load do this
+  // when productList changes do this. Should only change once.
   useEffect(() => {
-    // dispatch({type: 'GET_PRODUCT'});
     setDisplayArray(productList);
-  }, []);
+  }, [productList]);
 
   const handleSearch = function (event) {
     // change the product list we loop through depending on search category 
