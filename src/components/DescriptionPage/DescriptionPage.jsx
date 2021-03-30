@@ -175,7 +175,7 @@ const DescriptionPage = function () {
             <Paper className={classes.paper} elevation={3}>
               {Object.keys(extraInfo).length === 0 ? 
                 <div>
-                  Loading information from RainForest API...
+                  Loading information from RainForest API. This could take 10 to 20 seconds...
                   <CircularProgress />
                 </div> :
                 <Grid container>
