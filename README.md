@@ -10,3 +10,6 @@
 
 ### Main Page after Log In or Register
 ![GitHub Logo](/public/mainPage.png)
+
+## This site is live at 
+https://chokingplastic.herokuapp.com/#/home 
