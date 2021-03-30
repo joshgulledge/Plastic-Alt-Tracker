@@ -33,11 +33,21 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const getModalStyle = function () {
+  return {
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)'
+  };
+}; // end modalStyle
+
 
 
 const DescriptionPage = function () {
   // material ui
   const classes = useStyles();
+  const [modalStyle] = useState(getModalStyle);
+  
   // local state
   const [open, setOpen] = useState(false);
   const [description, setDescription] = useState('');
@@ -175,7 +185,7 @@ const DescriptionPage = function () {
             <Paper className={classes.paper} elevation={3}>
               {Object.keys(extraInfo).length === 0 ? 
                 <div>
-                  Loading information from RainForest API...
+                  Loading information from RainForest API. This could take 10 to 20 seconds...
                   <CircularProgress />
                 </div> :
                 <Grid container>
@@ -262,7 +272,7 @@ const DescriptionPage = function () {
           onClose={handleClose}
           aria-labelledby="simple-modal-title"
           aria-describedby="simple-modal-description">
-            <div className={classes.modal}>
+            <div style={modalStyle} className={classes.modal}>
               <h4 id="simple-modal-title">
                 Please indicate why you feel this way
               </h4>
