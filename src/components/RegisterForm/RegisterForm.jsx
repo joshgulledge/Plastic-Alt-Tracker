@@ -17,8 +17,11 @@ function RegisterForm() {
   // matierial ui
   const classes = useStyles();
 
+  // local state
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -30,6 +33,7 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
+        email: email
       },
     });
   }; // end registerUser
@@ -55,6 +59,21 @@ function RegisterForm() {
           />
         {/* </label> */}
       </div>
+
+      <div className={classes.inputs}>
+        {/* <label htmlFor="username">
+          Username: */}
+          <TextField label='email'
+            type="email"
+            // name="username"
+            value={email}
+            required
+            onChange={(event) => setEmail(event.target.value)}
+            variant='filled'
+          />
+        {/* </label> */}
+      </div>
+
       <div className={classes.inputs}>
         {/* <label htmlFor="password">
           Password: */}
