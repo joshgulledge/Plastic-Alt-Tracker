@@ -21,8 +21,6 @@ router.post('/register', (req, res, next) => {
   const username = req.body.username;
   const password = encryptLib.encryptPassword(req.body.password);
   const email = req.body.email;
-
-  console.log('🐢', req.body);
   
   const queryText = `INSERT INTO "user" (username, password, email)
     VALUES ($1, $2, $3) RETURNING id`;

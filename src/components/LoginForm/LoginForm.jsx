@@ -17,20 +17,23 @@ function LoginForm() {
   // matierial ui
   const classes = useStyles();
 
-  const [username, setUsername] = useState('');
+  // const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
   const errors = useSelector(store => store.errors);
   const dispatch = useDispatch();
 
   const login = (event) => {
     event.preventDefault();
 
-    if (username && password) {
+    if (password && email) {
       dispatch({
         type: 'LOGIN',
         payload: {
-          username: username,
+          // username: username,
           password: password,
+          email: email
         },
       });
     } else {
@@ -46,22 +49,24 @@ function LoginForm() {
           {errors.loginMessage}
         </h3>
       )}
+
       <div className={classes.inputs}>
-        {/* <label htmlFor="username">
+        {/* <label htmlFor="email">
           Username: */}
-          <TextField label='UserName'
-            type="text"
-            // name="username"
+          <TextField label='User Email'
+            type="email"
+            // name="email"
             required
-            value={username}
-            onChange={(event) => setUsername(event.target.value)}
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
             variant='filled'
           />
         {/* </label> */}
       </div>
+
       <div className={classes.inputs}>
-        <label htmlFor="password">
-          Password:
+        {/* <label htmlFor="password">
+          Password: */}
           <TextField label='Password'
             type="password"
             // name="password"
@@ -70,7 +75,7 @@ function LoginForm() {
             onChange={(event) => setPassword(event.target.value)}
             variant='filled'
           />
-        </label>
+        {/* </label> */}
       </div>
       <div>
         <Button variant='contained' color='primary' className="btn" type="submit" name="submit" >Log In</Button>
