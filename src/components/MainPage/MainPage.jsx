@@ -90,7 +90,7 @@ function MainPage() {
         matches = productList.filter(product => product.category === 'other' ); // end the loop
         break;
       default:
-        console.log('nothing in the switch worked');
+        
     }; // end switch
 
     setDisplayArray(matches)

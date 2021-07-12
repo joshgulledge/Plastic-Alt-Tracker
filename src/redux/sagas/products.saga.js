@@ -32,7 +32,7 @@ const setSingleProduct = function* (action) {
 
   }
   catch (err) {
-    console.log('something went wrong in the set single product 💥', err)
+    console.log(err)
   }
 }; // end setSingleProduct
 
@@ -45,7 +45,7 @@ const productDelete = function* (action) {
 
   }
   catch (err) {
-    console.log('something went wrong in the delete 💥', err)
+    console.log(err)
   }
 }; // end productDelete
 
@@ -59,7 +59,7 @@ const productPreference = function* (action) {
     });
   }
   catch (err) {
-    console.log('something went wrong in the like💥', err)
+    console.log(err)
   }; 
 }; // end productLiked
 
@@ -74,7 +74,7 @@ const addProduct = function* (action) {
     });
   }
   catch (err) {
-    console.log('uh oh, we got a problem 💥 :', err);
+    console.log(err);
   }
 }; // end addProduct
 

@@ -94,7 +94,6 @@ const DescriptionPage = function () {
   }; // end deleteProduct
 
   const likeProduct = function () {
-    console.log('like button');
     setPreference(1);
     handleOpen();
   }; // ene likeProduct
@@ -113,7 +112,6 @@ const DescriptionPage = function () {
   }; // end sendDispatch
 
   const hateProduct = function () {
-    console.log('hate button');
     setPreference(2);
     handleOpen();
   }; // end hateProduct

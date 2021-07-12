@@ -23,13 +23,13 @@ router.get('/', rejectUnauthenticated, (req, res) => {
       preferences: response.rows
     });
   }).catch(err => {
-    console.log('error in the get product likes 💥', err);
+    console.log(err);
     res.sendStatus(500);
   })
     
   }).catch(err => {
     // show the error
-    console.log('💥 Error! ', err);
+    console.log(err);
     res.sendStatus(500);
   }); // end pool query
 }); // end the get products route
@@ -56,7 +56,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
     pool.query(SQLtext, sendMe).then(dbRes => {
       res.sendStatus(200);
     }).catch(err => {
-      console.log('Something happened, product not added 💥', err);
+      console.log(err);
       res.sendStatus(500);
     }); // end pool query
 }); // end post route
@@ -69,7 +69,6 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
   // only admin can delete products
   if (req.user.authority !== 'ADMIN') return;
 
-  console.log('inside router delete....');
   // id of product we want to delete
   const deleteItem = req.params.id;
 
@@ -87,11 +86,11 @@ router.delete('/:id', rejectUnauthenticated, (req, res) => {
     pool.query(moreSQLtext, [deleteItem]).then (dataRes => { 
       res.sendStatus(200);
     }).catch (err => {
-      console.log('something happened in the delete server router... product 💥 ', err);
+      console.log(err);
     }); // end delete product
 
   }).catch(err => {
-    console.log('something happened in the delete server router.... dependent data 💥', err);
+    console.log(err);
     res.sendStatus(500);
   }); // end delete dependant data
 
@@ -128,7 +127,7 @@ router.post('/pref', rejectUnauthenticated, (req, res) => {
       pool.query(insertSQL, insertData).then(response => {
         res.sendStatus(200);
       }).catch(err => {
-        console.log('error in the insert 💥', err);
+        console.log(err);
       });
     } ; // end if no data
     
@@ -143,12 +142,12 @@ router.post('/pref', rejectUnauthenticated, (req, res) => {
       pool.query(updateSQL, updateData).then(response => {
         res.sendStatus(200);
       }).catch(err => {
-        console.log('error in the update 💥', err);
+        console.log(err);
         res.sendStatus(500);
       });
     }; // end update data
   }).catch(err => {
-    console.log('something happened in the pref post query 💥', err);
+    console.log(err);
     res.sendStatus(500);
   })
 }); // end preference route
@@ -172,7 +171,7 @@ router.post('/rainforest', rejectUnauthenticated, (req, res) => {
     // send back the info
     res.send(JSON.stringify(rainRes.data));
   }).catch(err => {
-    console.log('something went wrong in the api call 🤷‍♂️ ', err);
+    console.log(err);
     res.sendStatus(500);
   }); // end get from api request
 
